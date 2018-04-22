@@ -4,15 +4,16 @@ import { AggrBillsModel } from "../models/aggr_bills";
 
 const aggrBillsModel = new AggrBillsModel();
 
+const startDateParamName = "startDate";
+const endDateParamName = "endDate";
+
 export class AggrBillsController extends Controller {
     public getAggrBills = async (ctx: Context): Promise<void> => {
-        const dateBorders = this.validate(ctx, (validator: ItemValidator) => {
-            return {
-                startDate: this.isValidDate(validator.item("startDate")),
-                endDate: this.isValidDate(validator.item("endDate"))
+        const params = ctx.request.query;
+        const dateBorders = {
+                startDate: this.isValidDate(params[startDateParamName]),
+                endDate: this.isValidDate(params[endDateParamName])
             };
-        });
-
         ctx.body = await aggrBillsModel.getAggrBills(dateBorders.startDate, dateBorders.endDate);
     }
 
