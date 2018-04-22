@@ -78,8 +78,8 @@ router
      * @apiHeaderExample Headers-Example:
      *   { "Authorization": "Bearer :jwtToken" }
      *
-     * @apiParam {string} (optional) Начало временного интервала для фильтровки по дате.
-     * @apiParam {string} (optional) Конец временного интервала для фильтровки по дате.
+     * @apiParam {string} (optional) startDate Начало временного интервала для фильтровки по дате.
+     * @apiParam {string} (optional) endDate Конец временного интервала для фильтровки по дате.
      * Строки параметров должны конвертироваться в формат Date.
      *
      * @apiSuccess {Object} result записи из таблицы.
