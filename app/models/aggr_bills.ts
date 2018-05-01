@@ -1,12 +1,12 @@
 import { pgService } from "../../app";
 
-export interface IAggrBillsBills {
+export interface IAggrBills {
     idBills: number;
     billsCount: number;
     billsAmount: number;
-    bills_paid_count: number;
-    bills_paid_amount: number;
-    bills_add_timestamp: Date;
+    billsPaidCount: number;
+    billsPaidAmount: number;
+    billsAddTimestamp: Date;
 }
 
 export class AggrBillsModel {
@@ -15,7 +15,7 @@ export class AggrBillsModel {
         return Math.floor(dateTime.getTime() / 1000);
     }
 
-    public async getAggrBills(startDate?: Date, endDate?: Date): Promise<Array<IAggrBillsBills>> {
+    public async getAggrBills(startDate?: Date, endDate?: Date): Promise<Array<IAggrBills>> {
         let unixStartDate: number;
         let unixEndDate: number;
 

@@ -73,6 +73,7 @@ router
      * @apiDescription Возвращает записи из таблицы aggr_bills в определенном временном интервале, если какая-то
      * из границ интервала не передана или не может быть преобразована в формат даты, то вместо неё используется
      * граничное значение.(Для начала - 01.01.1970T00:00:00, для конца - текущая дата и время)
+     * Формат даты - YYYY-MM-DDThh:mm:ss.sssX X - time zone offset
      *
      * @apiHeader (Authorization) authorization Authorization value.
      * @apiHeaderExample Headers-Example:
