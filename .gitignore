@@ -10,3 +10,5 @@ build
 *.js
 *.js.map
 !/docs/**
+.vscode/tasks.json
+.vscode/launch.json

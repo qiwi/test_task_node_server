@@ -11,7 +11,7 @@
     }
   },
   "db": {
-    "host": "ss-12454-rds.c7ikcp7rqzxr.eu-central-1.rds.amazonaws.com",
+    "host": "test-task-db.qiwi.tools",
     "port": 5432,
     "database": "test_task",
     "user": "candidate",
