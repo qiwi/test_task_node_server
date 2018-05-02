@@ -1,5 +1,6 @@
 import { Controller, ItemValidator } from "innots";
 import { Context } from "koa";
+import { DateValidationError } from "../errors/date_validation";
 import { AggrBillsModel } from "../models/aggr_bills";
 
 const aggrBillsModel = new AggrBillsModel();
@@ -18,21 +19,12 @@ export class AggrBillsController extends Controller {
         });
         try {
             const dateBorders = {
-                    startDate: this.isDate(data.startDate),
-                    endDate: this.isDate(data.endDate)
+                    startDate: this.isDate(startDateParamName, data.startDate),
+                    endDate: this.isDate(endDateParamName, data.endDate)
                 };
             ctx.body = await aggrBillsModel.getAggrBills(dateBorders.startDate, dateBorders.endDate);
-        } catch (ValidationError) {
-            let errorText: string;
-            let paramName: string;
-            [errorText, paramName] = ValidationError.message.split(':');
-            ctx.body = {
-                error: errorText,
-                details: {
-                    invalidField: paramName,
-                    invalidValue: data[paramName]
-                }
-            };
+        } catch (error) {
+            ctx.body = error;
         }
     }
 
@@ -42,7 +34,7 @@ export class AggrBillsController extends Controller {
             if (!isNaN(date.getTime())) {
                 return date;
             } else {
-                throw new Error(DATE_VALIDATION_ERROR + ":" + paramName);
+                throw new DateValidationError('', paramName, dateString);
             }
         }
         return null;

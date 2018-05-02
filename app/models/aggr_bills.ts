@@ -1,4 +1,5 @@
 import { pgService } from "../../app";
+import { DatePeriodError } from "../errors/date_period";
 
 export interface IAggrBills {
     idBills: number;
@@ -16,28 +17,21 @@ export class AggrBillsModel {
     }
 
     public async getAggrBills(startDate?: Date, endDate?: Date): Promise<Array<IAggrBills>> {
-        let unixStartDate: number;
-        let unixEndDate: number;
-
         if (!startDate) {
-            unixStartDate = 0;
-        } else {
-            unixStartDate = AggrBillsModel.dateToUnix(startDate);
+            startDate = new Date(0);
         }
 
         if (!endDate) {
             endDate = new Date();
         }
 
-        unixEndDate = AggrBillsModel.dateToUnix(endDate);
-
-        if (unixEndDate < unixStartDate) {
-            [unixEndDate, unixStartDate] = [unixStartDate, unixEndDate];
+        if (endDate < startDate) {
+            throw new DatePeriodError('', startDate, endDate);
         }
 
         return pgService.getRows(`
             SELECT * FROM aggr_bills
-            WHERE bills_add_timestamp >= to_timestamp($1) AND bills_add_timestamp <= to_timestamp($2)`,
-            [unixStartDate, unixEndDate]);
+            WHERE bills_add_timestamp >= $1 AND bills_add_timestamp <= $2`,
+            [startDate, endDate]);
     }
 }
