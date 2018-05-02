@@ -10,7 +10,7 @@ const auth = new AuthController();
 const aggrBills = new AggrBillsController();
 
 const usersProtectedRoute = config.get('appConfig.apiPrefix') + 'users/';
-const aggrBillsProtectedRoute = config.get('appConfig.apiPrefix') + 'aggrBills';
+const aggrBillsProtectedRoute = config.get('appConfig.apiPrefix') + 'aggr_bills/';
 const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
 
 router
@@ -79,12 +79,12 @@ router
      * @apiHeaderExample Headers-Example:
      *   { "Authorization": "Bearer :jwtToken" }
      *
-     * @apiParam {string} (optional) startDate Начало временного интервала для фильтровки по дате.
-     * @apiParam {string} (optional) endDate Конец временного интервала для фильтровки по дате.
+     * @apiParam {string} [startDate] Начало временного интервала для фильтровки по дате.
+     * @apiParam {string} [endDate] Конец временного интервала для фильтровки по дате.
      * Строки параметров должны конвертироваться в формат ISO8601 co спецификацией часового пояса.
      *
      * @apiSuccess {Object} result записи из таблицы.
      */
-    .get(aggrBillsProtectedRoute, aggrBills.getAggrBills);
+    .get(aggrBillsProtectedRoute + 'items', aggrBills.getAggrBills);
 
 export { router };

@@ -7,7 +7,6 @@ const aggrBillsModel = new AggrBillsModel();
 
 const startDateParamName = "startDate";
 const endDateParamName = "endDate";
-const DATE_VALIDATION_ERROR = "ERROR_VALIDATION_NO_DATE";
 
 export class AggrBillsController extends Controller {
     public getAggrBills = async (ctx: Context): Promise<void> => {
