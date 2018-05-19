@@ -1,14 +1,17 @@
 import * as config from 'config';
 import * as Router from 'koa-router';
 import { AuthController } from "./controllers/auth";
+import { Payments as PaymentsController } from './controllers/payment';
 import { Users as UsersController } from './controllers/users';
 
 const router = new Router();
 const users = new UsersController();
 const auth = new AuthController();
+const payments = new PaymentsController();
 
 const usersProtectedRoute = config.get('appConfig.apiPrefix') + 'users/';
 const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
+const paymentProtectedRoute = config.get('appConfig.apiPrefix') + 'payments/';
 
 router
 
@@ -61,6 +64,20 @@ router
      *
      * @apiSuccess {Object} result пользователь.
      */
-    .get(usersProtectedRoute + 'item', users.getItem);
+    .get(usersProtectedRoute + 'item', users.getItem)
+    /**
+     * @api {get} /api/payments/items
+     * @apiName getPayments
+     * @apiGroup Payment
+     *
+     * @apiDescription Возвращает платежные данные
+     *
+     * @apiHeader (Authorization) authorization Authorization value.
+     * @apiHeaderExample Headers-Example:
+     *   { "Authorization": "Bearer :jwtToken" }
+     *
+     * @apiSuccess {Array} result Массив платежных данных.
+     */
+    .get(paymentProtectedRoute + 'items', payments.getItems);
 
 export { router };

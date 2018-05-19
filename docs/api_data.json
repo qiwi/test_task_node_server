@@ -52,6 +52,49 @@
   },
   {
     "type": "get",
+    "url": "/api/payments/items",
+    "title": "",
+    "name": "getPayments",
+    "group": "Payment",
+    "description": "<p>Возвращает платежные данные</p>",
+    "header": {
+      "fields": {
+        "Authorization": [
+          {
+            "group": "Authorization",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Headers-Example:",
+          "content": "{ \"Authorization\": \"Bearer :jwtToken\" }",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "result",
+            "description": "<p>Массив платежных данных.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./app/routes.ts",
+    "groupTitle": "Payment"
+  },
+  {
+    "type": "get",
     "url": "/api/users/item",
     "title": "",
     "name": "getUser",
