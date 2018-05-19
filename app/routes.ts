@@ -76,6 +76,11 @@ router
      * @apiHeaderExample Headers-Example:
      *   { "Authorization": "Bearer :jwtToken" }
      *
+     * @apiParam (query string) {Date} [from_date] дата с которой мы хотим выбрать платежные данные в формате ISO8601
+     * @apiParam (query string) {Date} [to_date] дата по которую мы хотим выбрать платежные данные в формате ISO8601
+     *
+     * @apiParamExample Пример запроса с параметрами:
+     * /api/payments/items?from_date=2018-04-09T04:05:00.000Z&to_date=2018-04-09T09:15:44%2B0500
      * @apiSuccess {Array} result Массив платежных данных.
      */
     .get(paymentProtectedRoute + 'items', payments.getItems);

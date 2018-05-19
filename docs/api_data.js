@@ -76,6 +76,33 @@ define({ "api": [
         }
       ]
     },
+    "parameter": {
+      "fields": {
+        "query string": [
+          {
+            "group": "query string",
+            "type": "Date",
+            "optional": true,
+            "field": "from_date",
+            "description": "<p>дата с которой мы хотим выбрать платежные данные в формате ISO8601</p>"
+          },
+          {
+            "group": "query string",
+            "type": "Date",
+            "optional": true,
+            "field": "to_date",
+            "description": "<p>дата по которую мы хотим выбрать платежные данные в формате ISO8601</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Пример запроса с параметрами:",
+          "content": "/api/payments/items?from_date=2018-04-09T04:05:00.000Z&to_date=2018-04-09T09:15:44%2B0500",
+          "type": "json"
+        }
+      ]
+    },
     "success": {
       "fields": {
         "Success 200": [
