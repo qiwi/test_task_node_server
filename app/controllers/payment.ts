@@ -14,7 +14,6 @@ export class Payments extends Controller {
         const toDate: Date = this.validate(ctx, (validator: ItemValidator) => {
             return validator.optional.isDate('to_date');
         });
-        console.log(toDate);
         if (fromDate > toDate) {
             throw new ValidationError(ValidationError.VALIDATION);
         }

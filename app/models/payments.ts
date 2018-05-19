@@ -19,7 +19,6 @@ export class PaymentsModel {
             where += where ? ` and bills_add_timestamp <= '${toDate.toISOString()}' `
                 : `WHERE bills_add_timestamp <= '${toDate.toISOString()}' `;
         }
-        console.log(where);
         return await pgService.getRows(
             `
             SELECT id_bills, bills_add_timestamp, bills_amount, bills_paid_amount, bills_count, bills_paid_count
