@@ -148,5 +148,48 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "./app/routes.ts",
     "groupTitle": "User"
-  }
+    },
+    {
+        "type": "get",
+        "url": "/api/aggrBills/items",
+        "title": "",
+        "name": "getAggrBills",
+        "group": "AggrBills",
+        "description": "<p>Возвращает платёжные данные</p>",
+        "header": {
+            "fields": {
+                "Authorization": [
+                    {
+                        "group": "Authorization",
+                        "optional": false,
+                        "field": "authorization",
+                        "description": "<p>Authorization value.</p>"
+                    }
+                ]
+            },
+            "examples": [
+                {
+                    "title": "Headers-Example:",
+                    "content": "{ \"Authorization\": \"Bearer :jwtToken\" }",
+                    "type": "json"
+                }
+            ]
+        },
+        "success": {
+            "fields": {
+                "Success 200": [
+                    {
+                        "group": "Success 200",
+                        "type": "Array",
+                        "optional": false,
+                        "field": "result",
+                        "description": "<p>Массив платёжных данных.</p>"
+                    }
+                ]
+            }
+        },
+        "version": "0.0.0",
+        "filename": "./app/routes.ts",
+        "groupTitle": "AggrBills"
+    }
 ] });

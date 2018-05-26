@@ -6,7 +6,7 @@ export interface IAggrBill {
 	amount: number;
 	paidCount: number;
 	paidAmount: number;
-	addTimeStamp: string;
+	addTimeStamp: Date;
 }
 
 export class AggrBillsModel {

@@ -2,16 +2,16 @@ import * as config from 'config';
 import * as Router from 'koa-router';
 import { AuthController } from "./controllers/auth";
 import { Users as UsersController } from './controllers/users';
-import { AggrBillsModel } from './models/aggrBills';
+import { AggrBills as AggrBillsController } from './controllers/aggrBills';
 
 const router = new Router();
-const users = new UsersController();
-const aggrBills = new AggrBillsModel();
 const auth = new AuthController();
+const users = new UsersController();
+const aggrBills = new AggrBillsController();
 
+const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
 const usersProtectedRoute = config.get('appConfig.apiPrefix') + 'users/';
 const aggrBillsProtectedRoute = config.get('appConfig.apiPrefix') + 'aggrBills/';
-const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
 
 router
 
