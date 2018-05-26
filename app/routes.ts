@@ -2,36 +2,40 @@ import * as config from 'config';
 import * as Router from 'koa-router';
 import { AuthController } from "./controllers/auth";
 import { Users as UsersController } from './controllers/users';
+import { AggrBills as AggrBillsController } from './controllers/aggrBills';
 
 const router = new Router();
-const users = new UsersController();
 const auth = new AuthController();
+const users = new UsersController();
+const aggrBills = new AggrBillsController();
 
-const usersProtectedRoute = config.get('appConfig.apiPrefix') + 'users/';
 const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
+const usersProtectedRoute = config.get('appConfig.apiPrefix') + 'users/';
+const aggrBillsProtectedRoute = config.get('appConfig.apiPrefix') + 'aggrBills/';
 
 router
 
-/**
- * @api {post} /api/public/auth/login
- * @apiName login
- * @apiGroup Auth
- *
- * @apiDescription Авторизует пользователя. В ответ на запрос отдаст JWT-Токен.
- * Его необходимо указывать в заголовке Authorization.
- *
- * @apiParam {String} email Почта пользователя.
- * @apiParam {String} password Пароль пользователя.
- *
- * @apiSuccess {String} result jwtToken
- *
- * @apiSuccessExample {json} Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "result": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIifQ.dtxWM6MIcgoeMgH87tGvsNDY6cHWL6MGW4LeYvnm1JA"
- *     }
- */
+    /**
+     * @api {post} /api/public/auth/login
+     * @apiName login
+     * @apiGroup Auth
+     *
+     * @apiDescription Авторизует пользователя. В ответ на запрос отдаст JWT-Токен.
+     * Его необходимо указывать в заголовке Authorization.
+     *
+     * @apiParam {String} email Почта пользователя.
+     * @apiParam {String} password Пароль пользователя.
+     *
+     * @apiSuccess {String} result jwtToken
+     *
+     * @apiSuccessExample {json} Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "result": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIifQ.dtxWM6MIcgoeMgH87tGvsNDY6cHWL6MGW4LeYvnm1JA"
+     *     }
+     */
     .post(authPublicRoute + 'login', auth.login)
+
     /**
      * @api {get} /api/users/items
      * @apiName getUsers
@@ -61,6 +65,22 @@ router
      *
      * @apiSuccess {Object} result пользователь.
      */
-    .get(usersProtectedRoute + 'item', users.getItem);
+    .get(usersProtectedRoute + 'item', users.getItem)
+
+
+    /**
+     * @api {get} /api/aggrBills/items
+     * @apiName getAggrBills
+     * @apiGroup AggrBills
+     *
+     * @apiDescription Возвращает платёжные данные
+     *
+     * * @apiHeader (Authorization) authorization Authorization value.
+     * @apiHeaderExample Headers-Example:
+     *   { "Authorization": "Bearer :jwtToken" }
+     *
+     * @apiSuccess {Array} result Массив платёжных данных.
+     */
+    .get(aggrBillsProtectedRoute + 'items', aggrBills.getItems);
 
 export { router };
