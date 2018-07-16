@@ -21,8 +21,11 @@ export class AggrBillsModel {
         limit?: number;
         offset?: number;
     } = {}): Promise<Array<IAggrBills>> {
-        startDate = startDate || new Date(0);
-        endDate = endDate || new Date();
+        const minDateValue = new Date(0);
+        const maxDateValue = new Date();
+
+        startDate = startDate || minDateValue;
+        endDate = endDate || maxDateValue;
         limit = limit || 100;
         offset = offset || 0;
 

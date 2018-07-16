@@ -78,8 +78,8 @@ router
      *
      * @apiParam {Number} [offset = 0] Смещение в выдачи возвращаемых элементов.
      * @apiParam {Number} [limit = 100] Максимальное количество возвращаемых элементов.
-     * @apiParam {String} [startDate] Нижняя граница диапазона дат. Строка в формате ISO8601.
-     * @apiParam {String} [endDate] Верхняя граница диапазона дат. Строка в формате ISO8601.
+     * @apiParam {String} [startDate] Нижняя граница фильтра даты. Строка в формате ISO8601.
+     * @apiParam {String} [endDate] Верхняя граница фильтра даты. Строка в формате ISO8601.
      *
      * @apiSuccess {Object} result Массив транзакционных агрегатов.
      */
