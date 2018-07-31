@@ -7,7 +7,7 @@ const aggrBillsModel = new AggrBillsModel();
 export class AggrBillsController extends Controller {
 
     public getItems = async (ctx: Context): Promise<void> => {
-    	const fromDate: Date = this.validate(ctx, (validator: ItemValidator) => {
+        const fromDate: Date = this.validate(ctx, (validator: ItemValidator) => {
             return validator.optional.isDate('fromDate');
         });
         const toDate: Date = this.validate(ctx, (validator: ItemValidator) => {

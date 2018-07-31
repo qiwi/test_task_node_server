@@ -1,7 +1,7 @@
 import * as config from 'config';
 import * as Router from 'koa-router';
-import { AuthController } from "./controllers/auth";
 import { AggrBillsController } from "./controllers/aggrbills";
+import { AuthController } from "./controllers/auth";
 import { Users as UsersController } from './controllers/users';
 
 const router = new Router();
@@ -82,6 +82,5 @@ router
      * @apiSuccess {Object} result Массив транзакционных агрегатов.
      */
     .get(aggrProtectedRoute + 'bills', aggrBills.getItems);
-    
 
 export { router };
