@@ -1,13 +1,16 @@
 import * as config from 'config';
 import * as Router from 'koa-router';
 import { AuthController } from "./controllers/auth";
+import { AggrBillsController } from "./controllers/aggrbills";
 import { Users as UsersController } from './controllers/users';
 
 const router = new Router();
 const users = new UsersController();
+const aggrBills = new AggrBillsController();
 const auth = new AuthController();
 
 const usersProtectedRoute = config.get('appConfig.apiPrefix') + 'users/';
+const aggrProtectedRoute = config.get('appConfig.apiPrefix') + 'aggr/';
 const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
 
 router
@@ -61,6 +64,24 @@ router
      *
      * @apiSuccess {Object} result пользователь.
      */
-    .get(usersProtectedRoute + 'item', users.getItem);
+    .get(usersProtectedRoute + 'item', users.getItem)
+    /**
+     * @api {get} /api/aggr/bills
+     * @apiName getAggrBills
+     * @apiGroup Aggregate
+     *
+     * @apiDescription Возвращает список транзакционных агрегатов
+     *
+     * @apiHeader (Authorization) authorization Authorization value.
+     * @apiHeaderExample Headers-Example:
+     *   { "Authorization": "Bearer :jwtToken" }
+     *
+     * @apiParam {Date} [fromDate] Нижняя граница фильтра по дате, по умолчанию - Unix Epoch.
+     * @apiParam {Date} [toDate] Верхняя граница фильтра по дате, по умолчанию - текущая дата.
+     *
+     * @apiSuccess {Object} result Массив транзакционных агрегатов.
+     */
+    .get(aggrProtectedRoute + 'bills', aggrBills.getItems);
+    
 
 export { router };
