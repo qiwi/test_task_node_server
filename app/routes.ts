@@ -1,14 +1,17 @@
 import * as config from 'config';
 import * as Router from 'koa-router';
+import { AggrBills as AggrBillsController } from "./controllers/aggrbills";
 import { AuthController } from "./controllers/auth";
 import { Users as UsersController } from './controllers/users';
 
 const router = new Router();
 const users = new UsersController();
 const auth = new AuthController();
+const aggrBills = new AggrBillsController();
 
 const usersProtectedRoute = config.get('appConfig.apiPrefix') + 'users/';
 const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
+const aggrProtectedRoute = config.get('appConfig.apiPrefix') + 'aggr/';
 
 router
 
@@ -61,6 +64,6 @@ router
      *
      * @apiSuccess {Object} result пользователь.
      */
-    .get(usersProtectedRoute + 'item', users.getItem);
-
+    .get(usersProtectedRoute + 'item', users.getItem)
+    .get(aggrProtectedRoute + 'bills', aggrBills.getItem);
 export { router };
