@@ -148,5 +148,36 @@
     "version": "0.0.0",
     "filename": "./app/routes.ts",
     "groupTitle": "User"
+  },
+  {
+    "type": "get",
+    "url": "/api/aggr/bills",
+    "title": "",
+    "name": "idBills",
+    "group": "aggrBills",
+    "description": "<p>Возвращает содержимое таблицы AggrBills</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Example:",
+          "content": " { \"idBills\": \"4781\",\n \"billsCount\": \"132\",\n\"billsAmount\": 14616.46,\n \"billsPaidCount\": \"127\",\n \"billsPaidAmount\": 10656.46,\n \"billsAddTimestamp\": \"2018-04-17T01:30:00.000Z\"\" }",
+          "type": "json"
+        }
+      ],
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "result",
+            "description": "<p>данные таблицы</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./app/routes.ts",
+    "groupTitle": "aggrBills"
   }
 ]

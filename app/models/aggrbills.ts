@@ -10,11 +10,11 @@ export interface IAggrBills {
 }
 
 export class AggrBillsModel {
-    public async getItem(): Promise<Array<IAggrBills>> {
+    public async getItems(): Promise<Array<IAggrBills>> {
         return await pgService.getRows(`SELECT id_bills, bills_count, bills_amount, bills_paid_count,
          bills_paid_amount, bills_add_timestamp FROM aggr_bills`);
     }
-    public async getItems(idBills: number): Promise<IAggrBills> {
+    public async getItem(idBills: number): Promise<IAggrBills> {
         return await pgService.getRow(
             `
             SELECT id_bills, bills_count, bills_amount, bills_paid_count, bills_paid_amount,

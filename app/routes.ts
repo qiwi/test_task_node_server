@@ -65,5 +65,22 @@ router
      * @apiSuccess {Object} result пользователь.
      */
     .get(usersProtectedRoute + 'item', users.getItem)
+    /**
+     * @api {get} /api/aggr/bills
+     * @apiName idBills
+     * @apiGroup aggrBills
+     *
+     * @apiDescription Возвращает содержимое таблицы AggrBills
+     *
+     * @apiSuccessExample Success-Example:
+     *   { "idBills": "4781",
+     *   "billsCount": "132",
+     *  "billsAmount": 14616.46,
+     *   "billsPaidCount": "127",
+     *   "billsPaidAmount": 10656.46,
+     *   "billsAddTimestamp": "2018-04-17T01:30:00.000Z"" }
+     *
+     * @apiSuccess {Object} result данные таблицы
+     */
     .get(aggrProtectedRoute + 'bills', aggrBills.getItems);
 export { router };

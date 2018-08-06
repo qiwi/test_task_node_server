@@ -6,15 +6,15 @@ const aggrBillsModel = new AggrBillsModel();
 
 export class AggrBills extends Controller {
 
-    public getItem = async (ctx: Context): Promise<void> => {
-        ctx.body = await aggrBillsModel.getItem();
+    public getItems = async (ctx: Context): Promise<void> => {
+        ctx.body = await aggrBillsModel.getItems();
     }
 
-    public getItems = async (ctx: Context): Promise<void> => {
+    public getItem = async (ctx: Context): Promise<void> => {
         const idBills: number = this.validate(ctx, (validator: ItemValidator) => {
             return validator.isInt('idBills');
         });
 
-        ctx.body = await aggrBillsModel.getItems(idBills);
+        ctx.body = await aggrBillsModel.getItem(idBills);
     }
 }
