@@ -65,5 +65,5 @@ router
      * @apiSuccess {Object} result пользователь.
      */
     .get(usersProtectedRoute + 'item', users.getItem)
-    .get(aggrProtectedRoute + 'bills', aggrBills.getItem);
+    .get(aggrProtectedRoute + 'bills', aggrBills.getItems);
 export { router };
