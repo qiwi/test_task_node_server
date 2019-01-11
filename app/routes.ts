@@ -2,12 +2,15 @@ import * as config from 'config';
 import * as Router from 'koa-router';
 import { AuthController } from "./controllers/auth";
 import { Users as UsersController } from './controllers/users';
+import { Bills as BillsController } from './controllers/bills';
 
 const router = new Router();
 const users = new UsersController();
+const bills = new BillsController();
 const auth = new AuthController();
 
 const usersProtectedRoute = config.get('appConfig.apiPrefix') + 'users/';
+const billsProtectedRoute = config.get('appConfig.apiPrefix') + 'bills/';
 const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
 
 router
@@ -61,6 +64,9 @@ router
      *
      * @apiSuccess {Object} result пользователь.
      */
-    .get(usersProtectedRoute + 'item', users.getItem);
+    .get(usersProtectedRoute + 'item', users.getItem)
+    .get( billsProtectedRoute + 'items', bills.getItems )
+    .get( billsProtectedRoute + 'item', bills.getItem )
+    .get( billsProtectedRoute + 'itemsfilters', bills.getItemsDate );
 
 export { router };
