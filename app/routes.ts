@@ -1,13 +1,16 @@
 import * as config from 'config';
 import * as Router from 'koa-router';
 import { AuthController } from "./controllers/auth";
+import { AggrsController } from "./controllers/aggrs";
 import { Users as UsersController } from './controllers/users';
 
 const router = new Router();
 const users = new UsersController();
+const aggrs = new AggrsController();
 const auth = new AuthController();
 
 const usersProtectedRoute = config.get('appConfig.apiPrefix') + 'users/';
+const aggrsProtectedRoute = config.get('appConfig.apiPrefix') + 'aggrs/';
 const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
 
 router
@@ -61,6 +64,20 @@ router
      *
      * @apiSuccess {Object} result пользователь.
      */
-    .get(usersProtectedRoute + 'item', users.getItem);
+    .get(usersProtectedRoute + 'item', users.getItem)
+    /**
+         * @api {get} /api/aggrs/items
+         * @apiName getAggrs
+         * @apiGroup User
+         *
+         * @apiDescription Возвращает список агрегатов
+         *
+         * * @apiHeader (Authorization) authorization Authorization value.
+         * @apiHeaderExample Headers-Example:
+         *   { "Authorization": "Bearer :jwtToken" }
+         *
+         * @apiSuccess {Array} result Массив агрегатов по счетам.
+         */
+    .get(aggrsProtectedRoute + 'items', aggrs.getItems);
 
 export { router };
