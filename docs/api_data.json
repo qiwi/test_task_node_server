@@ -1,5 +1,68 @@
 [
   {
+    "type": "get",
+    "url": "/api/aggrBills",
+    "title": "",
+    "name": "getAggrBills",
+    "group": "AggrBills",
+    "description": "<p>Возвращает записи из таблицы aggr_bills в определенном временном интервале, если какая-то из границ интервала не передана или не может быть преобразована в формат даты, то вместо неё используется граничное значение.(Для начала - 01.01.1970T00:00:00.000Z, для конца - текущая дата и время) Формат даты - YYYY-MM-DDThh:mm:ss.sssX X - спецификация часового пояса</p>",
+    "header": {
+      "fields": {
+        "Authorization": [
+          {
+            "group": "Authorization",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Headers-Example:",
+          "content": "{ \"Authorization\": \"Bearer :jwtToken\" }",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "startDate",
+            "description": "<p>Начало временного интервала для фильтровки по дате.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "endDate",
+            "description": "<p>Конец временного интервала для фильтровки по дате. Строки параметров должны конвертироваться в формат ISO8601 co спецификацией часового пояса.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "result",
+            "description": "<p>записи из таблицы.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./app/routes.ts",
+    "groupTitle": "AggrBills"
+  },
+  {
     "type": "post",
     "url": "/api/public/auth/login",
     "title": "",
