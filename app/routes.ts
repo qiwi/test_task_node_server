@@ -65,8 +65,35 @@ router
    * @apiSuccess {Object} result пользователь.
    */
   .get(usersProtectedRoute + "item", users.getItem)
-
+  /**
+   * @api {get} /api/bills/items
+   * @apiName getBills
+   * @apiGroup Bills
+   *
+   * @apiDescription Возвращает список платежных данных
+   *
+   * * @apiHeader (Authorization) authorization Authorization value.
+   * @apiHeaderExample Headers-Example:
+   *   { "Authorization": "Bearer :jwtToken" }
+   *
+   * @apiSuccess {Array} result Массив платёжных данных о пополнениях счетов.
+   */
   .get(billsProtectedRoute + "items", bills.getItems)
+  /**
+   * @api {get} /api/bills/item
+   * @apiName getBills
+   * @apiGroup Bills
+   *
+   * @apiDescription Возвращает платежные данные по id
+   *
+   * @apiHeader (Authorization) authorization Authorization value.
+   * @apiHeaderExample Headers-Example:
+   *   { "Authorization": "Bearer :jwtToken" }
+   *
+   * @apiParam {Number} id Идентификатор платежных данных.
+   *
+   * @apiSuccess {Object} result платёжные данные.
+   */
   .get(billsProtectedRoute + "item", bills.getItem);
 
 export { router };
