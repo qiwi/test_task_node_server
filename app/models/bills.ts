@@ -2,8 +2,11 @@ import { pgService } from "../../app";
 
 export interface IBills {
   idBills: number;
-  billsDateFrom: string;
-  billsDateTo: string;
+  billsAddTimestamp: Date;
+  billsAmount: number;
+  billsPaidAmount: number;
+  billsCount: number;
+  billsPaidCount: number;
 }
 
 export class BillsModel {
