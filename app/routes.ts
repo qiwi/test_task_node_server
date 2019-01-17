@@ -26,7 +26,7 @@ router
  * @apiParam {String} email Почта пользователя.
  * @apiParam {String} password Пароль пользователя.
  *
- * @apiSuccess {String} result jwtToken
+ * @apiSuccess {String} result :jwtToken
  *
  * @apiSuccessExample {json} Success-Response:
  *     HTTP/1.1 200 OK
@@ -44,7 +44,7 @@ router
    *
    * @apiHeader (Authorization) authorization Authorization value.
    * @apiHeaderExample Headers-Example:
-   *   { "Authorization": "Bearer jwtToken" }
+   *   { "Authorization": "Bearer :jwtToken" }
    *
    * @apiSuccess {Array} result Массив созданных пользователей.
    */
@@ -58,7 +58,7 @@ router
    *
    * @apiHeader (Authorization) authorization Authorization value.
    * @apiHeaderExample Headers-Example:
-   *   { "Authorization": "Bearer jwtToken" }
+   *   { "Authorization": "Bearer :jwtToken" }
    *
    * @apiParam {Number} id Идентификатор пользователя.
    *
@@ -74,7 +74,7 @@ router
    *
    * @apiHeader (Authorization) authorization Authorization value.
    * @apiHeaderExample Headers-Example:
-   *   { "Authorization": "Bearer jwtToken" }
+   *   { "Authorization": "Bearer :jwtToken" }
    *
    * @apiParam {String} from Нижняя граница даты транзакций пополнения счетов.
    * @apiParam {String} to Верхняя граница даты транзакций пополнения счетов.
