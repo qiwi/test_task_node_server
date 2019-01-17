@@ -41,7 +41,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"result\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIifQ.dtxWM6MIcgoeMgH87tGvsNDY6cHWL6MGW4LeYvnm1JA\"\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"result\":\n     \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIifQ.dtxWM6MIcgoeMgH87tGvsNDY6cHWL6MGW4LeYvnm1JA\"\n}",
           "type": "json"
         }
       ]
@@ -148,5 +148,36 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "./app/routes.ts",
     "groupTitle": "User"
+  },
+  {
+    "type": "post",
+    "url": "/api/public/healthcheck",
+    "title": "",
+    "name": "healthcheck",
+    "group": "healthcheck",
+    "description": "<p>Всегда вернет 200, когда приложение запущено</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "result",
+            "description": "<p>1</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"result\": 1\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./app/routes.ts",
+    "groupTitle": "healthcheck"
   }
 ] });
