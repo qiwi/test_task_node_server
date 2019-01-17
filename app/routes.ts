@@ -1,13 +1,16 @@
 import * as config from 'config';
 import * as Router from 'koa-router';
+import { AggrBills as AggrBillsController } from './controllers/aggr_bills';
 import { AuthController } from "./controllers/auth";
 import { Users as UsersController } from './controllers/users';
 
 const router = new Router();
 const users = new UsersController();
 const auth = new AuthController();
+const aggrBills = new AggrBillsController();
 
 const usersProtectedRoute = config.get('appConfig.apiPrefix') + 'users/';
+const aggrBillsProtectedRoute = config.get('appConfig.apiPrefix') + 'aggr_bills/';
 const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
 
 router
@@ -61,6 +64,26 @@ router
      *
      * @apiSuccess {Object} result пользователь.
      */
-    .get(usersProtectedRoute + 'item', users.getItem);
+    .get(usersProtectedRoute + 'item', users.getItem)
+    /**
+     * @api {get} /api/aggr_bills/items
+     * @apiName getAggrBills
+     * @apiGroup AggrBills
+     *
+     * @apiDescription Возвращает список транзакционных агрегатов по пятиминутным интервалам
+     *
+     * @apiHeader (Authorization) authorization Authorization value.
+     * @apiHeaderExample Headers-Example:
+     *   { "Authorization": "Bearer :jwtToken" }
+     *
+     * @apiParam {Number} [offset = 0] Смещение в выдачи возвращаемых элементов.
+     * @apiParam {Number} [limit = 100] Максимальное количество возвращаемых элементов.
+     * @apiParam {String} [startDate] Нижняя граница фильтра даты. Строка в формате ISO8601.
+     * @apiParam {String} [endDate] Верхняя граница фильтра даты. Строка в формате ISO8601.
+     *
+     * @apiSuccess {Object} result Массив транзакционных агрегатов.
+     */
+    .get(aggrBillsProtectedRoute + 'items', aggrBills.getItems)
+    ;
 
 export { router };
