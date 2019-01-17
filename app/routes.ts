@@ -44,7 +44,7 @@ router
    *
    * * @apiHeader (Authorization) authorization Authorization value.
    * @apiHeaderExample Headers-Example:
-   *   { "Authorization": "Bearer :jwtToken" }
+   *   { "Authorization": "Bearer jwtToken" }
    *
    * @apiSuccess {Array} result Массив созданных пользователей.
    */
@@ -58,7 +58,7 @@ router
    *
    * @apiHeader (Authorization) authorization Authorization value.
    * @apiHeaderExample Headers-Example:
-   *   { "Authorization": "Bearer :jwtToken" }
+   *   { "Authorization": "Bearer jwtToken" }
    *
    * @apiParam {Number} id Идентификатор пользователя.
    *
@@ -74,7 +74,7 @@ router
    *
    * * @apiHeader (Authorization) authorization Authorization value.
    * @apiHeaderExample Headers-Example:
-   *   { "Authorization": "Bearer :jwtToken" }
+   *   { "Authorization": "Bearer jwtToken" }
    *
    * @apiSuccess {Array} result Массив платёжных данных о пополнениях счетов.
    */
