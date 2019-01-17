@@ -7,12 +7,6 @@ export interface IBills {
 }
 
 export class BillsModel {
-  // public async getItems(): Promise<Array<IBills>> {
-  //   return await pgService.getRows(
-  //     `SELECT id_bills, bills_add_timestamp, bills_amount, bills_paid_amount, bills_count, bills_paid_count
-  //      FROM aggr_bills`
-  //   );
-  // }
 
   public async getItems({
     dateFromStr,
