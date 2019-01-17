@@ -1,5 +1,6 @@
-import { Controller, ItemValidator } from 'innots';
+import { Controller, InnoError, ItemValidator } from 'innots';
 import { Context } from 'koa';
+import { isISO8601 } from 'validator';
 import { BillsModel } from '../models/bills';
 
 const billsModel = new BillsModel();
@@ -29,8 +30,22 @@ export class Bills extends Controller {
             return validator.optional.isInt('limit');
         });
 
-        // const DateFrom = new Date(DateFromStr);
-        // const DateTo = new Date(DateToStr);
+        // Checking thant `from` and `to` argements is a date
+        // P.S. По-хорошему, надо обновить innots и использовать isDate
+        // (но обновление пакета вызывает ошибки, поэтому я решил пока проверить вручную)
+        if (dateFromStr && !isISO8601(dateFromStr)) {
+            throw new InnoError('DATE_FROM_IS_NOT_A_DATE', 400);
+        }
+        if (dateToStr && !isISO8601(dateToStr)) {
+            throw new InnoError('DATE_TO_IS_NOT_A_DATE', 400);
+        }
+
+        // Checking that from date is lower than higher date
+        const dateFrom = new Date(dateFromStr);
+        const dateTo = new Date(dateToStr);
+        if (dateFrom > dateTo) {
+            throw new InnoError('FROM_DATE_IS_MORE_THAN_TO_DATE', 400);
+        }
 
         ctx.body = await billsModel.getItems({ dateFromStr, dateToStr, offset, limit });
 

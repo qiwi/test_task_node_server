@@ -14,7 +14,8 @@
   "private": true,
   "dependencies": {
     "config": "^1.30.0",
-    "innots": "^1.1.7"
+    "innots": "^1.1.7",
+    "validator": "^10.11.0"
   },
   "devDependencies": {
     "apidoc": "^0.17.5",
