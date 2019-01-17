@@ -12,24 +12,28 @@ export interface IBills {
 export class BillsModel {
 
   public async getItems({
-    dateFromStr,
-    dateToStr,
+    dateFrom,
+    dateTo,
     offset,
     limit
   }: {
-    dateFromStr?: string;
-    dateToStr?: string;
+    dateFrom?: Date;
+    dateTo?: Date;
     offset?: number;
     limit?: number;
   } = {}): Promise<Array<IBills>> {
+    dateFrom = dateFrom || new Date(0);
+    dateTo = dateTo || new Date();
+    limit = limit || 100;
+    offset = offset || 0;
     return await pgService.getRows(
       `
         SELECT id_bills, bills_add_timestamp, bills_amount, bills_paid_amount, bills_count, bills_paid_count
         FROM aggr_bills
-        WHERE  bills_add_timestamp BETWEEN COALESCE($1, bills_add_timestamp) AND COALESCE($2, bills_add_timestamp)
+        WHERE  bills_add_timestamp BETWEEN $1 AND $2
         OFFSET $3 LIMIT $4
       `,
-      [dateFromStr, dateToStr, offset, limit]
+      [dateFrom, dateTo, offset, limit]
     );
   }
 

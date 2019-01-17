@@ -13,8 +13,6 @@ export class Bills extends Controller {
 
     // TODO:
     // 1) в новом innots есть isDate!
-    // 2) тип данных  Date для from и to (вместо strgin)
-    //    ( но будет другой sql, нужно посмотреть, будет ли это быстрее в POSTGRESS)
 
     public getItems = async (ctx: Context): Promise<void> => {
         const dateFromStr: string = this.validate(ctx, (validator: ItemValidator) => {
@@ -41,13 +39,14 @@ export class Bills extends Controller {
         }
 
         // Checking that from date is lower than higher date
-        const dateFrom = new Date(dateFromStr);
-        const dateTo = new Date(dateToStr);
+        const dateFrom = dateFromStr && new Date(dateFromStr);
+        const dateTo = dateToStr && new Date(dateToStr);
+
         if (dateFrom > dateTo) {
             throw new InnoError('FROM_DATE_IS_MORE_THAN_TO_DATE', 400);
         }
 
-        ctx.body = await billsModel.getItems({ dateFromStr, dateToStr, offset, limit });
+        ctx.body = await billsModel.getItems({ dateFrom, dateTo, offset, limit });
 
     }
 
