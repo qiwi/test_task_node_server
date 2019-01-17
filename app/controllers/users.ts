@@ -1,6 +1,6 @@
-import { Controller, ItemValidator } from 'innots';
-import { Context } from 'koa';
-import { UsersModel } from '../models/users';
+import {Controller, ItemValidator} from 'innots';
+import {Context} from 'koa';
+import {UsersModel} from '../models/users';
 
 const usersModel = new UsersModel();
 

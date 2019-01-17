@@ -1,4 +1,4 @@
-import { pgService } from "../../app";
+import {pgService} from "../../app";
 
 export interface IUser {
     idUser: number;

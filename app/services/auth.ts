@@ -1,5 +1,5 @@
 import * as crypto from "crypto";
-import { UsersModel } from "../models/users";
+import {UsersModel} from "../models/users";
 
 const usersModel = new UsersModel();
 
