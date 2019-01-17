@@ -14,19 +14,25 @@ export class Bills extends Controller {
     // 1) тип данных не string, а Date
     // 2) в новом innots есть isDate!
     // 3) сравение from < to c выдачей ошибки, если это не так
-    // 4) limit и offset (возможно POST)
+
     public getItems = async (ctx: Context): Promise<void> => {
-        const DateFromStr: string = this.validate(ctx, (validator: ItemValidator) => {
+        const dateFromStr: string = this.validate(ctx, (validator: ItemValidator) => {
             return validator.optional.isString('from');
         });
-        const DateToStr: string = this.validate(ctx, (validator: ItemValidator) => {
+        const dateToStr: string = this.validate(ctx, (validator: ItemValidator) => {
             return validator.optional.isString('to');
+        });
+        const offset: number = this.validate(ctx, (validator: ItemValidator) => {
+            return validator.optional.isInt('offset');
+        });
+        const limit: number = this.validate(ctx, (validator: ItemValidator) => {
+            return validator.optional.isInt('limit');
         });
 
         // const DateFrom = new Date(DateFromStr);
         // const DateTo = new Date(DateToStr);
 
-        ctx.body = await billsModel.getItems(DateFromStr, DateToStr);
+        ctx.body = await billsModel.getItems({ dateFromStr, dateToStr, offset, limit });
 
     }
 
