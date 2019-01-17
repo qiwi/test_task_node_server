@@ -42,7 +42,7 @@ router
    *
    * @apiDescription Возвращает список пользователей
    *
-   * * @apiHeader (Authorization) authorization Authorization value.
+   * @apiHeader (Authorization) authorization Authorization value.
    * @apiHeaderExample Headers-Example:
    *   { "Authorization": "Bearer jwtToken" }
    *
@@ -72,9 +72,14 @@ router
    *
    * @apiDescription Возвращает список платежных данных
    *
-   * * @apiHeader (Authorization) authorization Authorization value.
+   * @apiHeader (Authorization) authorization Authorization value.
    * @apiHeaderExample Headers-Example:
    *   { "Authorization": "Bearer jwtToken" }
+   *
+   * @apiParam {String} from Нижняя граница даты транзакций пополнения счетов.
+   * @apiParam {String} to Верхняя граница даты транзакций пополнения счетов.
+   * @apiParam {String} limit Максимальное кол-во выдываемых агрегационных транзакций.
+   * @apiParam {String} offset Смещение (начало отсчета) выдываемых агрегационных транзакций.
    *
    * @apiSuccess {Array} result Массив платёжных данных о пополнениях счетов.
    */

@@ -12,9 +12,9 @@ export class Bills extends Controller {
     // }
 
     // TODO:
-    // 1) тип данных не string, а Date
-    // 2) в новом innots есть isDate!
-    // 3) сравение from < to c выдачей ошибки, если это не так
+    // 1) в новом innots есть isDate!
+    // 2) тип данных  Date для from и to (вместо strgin)
+    //    ( но будет другой sql, нужно посмотреть, будет ли это быстрее в POSTGRESS)
 
     public getItems = async (ctx: Context): Promise<void> => {
         const dateFromStr: string = this.validate(ctx, (validator: ItemValidator) => {
