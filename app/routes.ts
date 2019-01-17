@@ -15,25 +15,25 @@ const authPublicRoute = config.get("appConfig.publicApiPrefix") + "auth/";
 
 router
 
-  /**
-   * @api {post} /api/public/auth/login
-   * @apiName login
-   * @apiGroup Auth
-   *
-   * @apiDescription Авторизует пользователя. В ответ на запрос отдаст JWT-Токен.
-   * Его необходимо указывать в заголовке Authorization.
-   *
-   * @apiParam {String} email Почта пользователя.
-   * @apiParam {String} password Пароль пользователя.
-   *
-   * @apiSuccess {String} result jwtToken
-   *
-   * @apiSuccessExample {json} Success-Response:
-   *     HTTP/1.1 200 OK
-   *     {
-   *       "result": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIifQ.dtxWM6MIcgoeMgH87tGvsNDY6cHWL6MGW4LeYvnm1JA"
-   *     }
-   */
+/**
+ * @api {post} /api/public/auth/login
+ * @apiName login
+ * @apiGroup Auth
+ *
+ * @apiDescription Авторизует пользователя. В ответ на запрос отдаст JWT-Токен.
+ * Его необходимо указывать в заголовке Authorization.
+ *
+ * @apiParam {String} email Почта пользователя.
+ * @apiParam {String} password Пароль пользователя.
+ *
+ * @apiSuccess {String} result jwtToken
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "result": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIifQ.dtxWM6MIcgoeMgH87tGvsNDY6cHWL6MGW4LeYvnm1JA"
+ *     }
+ */
   .post(authPublicRoute + "login", auth.login)
   /**
    * @api {get} /api/users/items
@@ -78,22 +78,6 @@ router
    *
    * @apiSuccess {Array} result Массив платёжных данных о пополнениях счетов.
    */
-  .get(billsProtectedRoute + "items", bills.getItems)
-  /**
-   * @api {get} /api/bills/item
-   * @apiName getBills
-   * @apiGroup Bills
-   *
-   * @apiDescription Возвращает платежные данные по id
-   *
-   * @apiHeader (Authorization) authorization Authorization value.
-   * @apiHeaderExample Headers-Example:
-   *   { "Authorization": "Bearer :jwtToken" }
-   *
-   * @apiParam {Number} id Идентификатор платежных данных.
-   *
-   * @apiSuccess {Object} result платёжные данные.
-   */
-  .get(billsProtectedRoute + "item", bills.getItem);
+  .get(billsProtectedRoute + "items", bills.getItems);
 
 export { router };

@@ -7,20 +7,21 @@ export interface IBill {
 }
 
 export class BillsModel {
-  public async getItems(): Promise<Array<IBill>> {
-    return await pgService.getRows(
-      `SELECT id_bills, bills_add_timestamp, bills_amount, bills_paid_amount, bills_count, bills_paid_count
-       FROM aggr_bills`
-    );
-  }
+  // public async getItems(): Promise<Array<IBill>> {
+  //   return await pgService.getRows(
+  //     `SELECT id_bills, bills_add_timestamp, bills_amount, bills_paid_amount, bills_count, bills_paid_count
+  //      FROM aggr_bills`
+  //   );
+  // }
 
-  public async getItem(idBills: number): Promise<IBill> {
-    return await pgService.getRow(
+  public async getItems(billsDateFrom: string , billsDateTo: string): Promise<Array<IBill>> {
+    return await pgService.getRows(
       `
         SELECT id_bills, bills_add_timestamp, bills_amount, bills_paid_amount, bills_count, bills_paid_count
         FROM aggr_bills
-        WHERE id_bills = $1`,
-      [idBills]
+        WHERE  bills_add_timestamp BETWEEN COALESCE($1, bills_add_timestamp) AND COALESCE($2, bills_add_timestamp)
+      `,
+      [billsDateFrom, billsDateTo]
     );
   }
 

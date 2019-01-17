@@ -6,16 +6,20 @@ const billsModel = new BillsModel();
 
 export class Bills extends Controller {
 
+    // public getItems = async (ctx: Context): Promise<void> => {
+    //     ctx.body = await billsModel.getItems();
+    // }
+
     public getItems = async (ctx: Context): Promise<void> => {
-        ctx.body = await billsModel.getItems();
-    }
-
-    public getItem = async (ctx: Context): Promise<void> => {
-
-        const idBills: number = this.validate(ctx, (validator: ItemValidator) => {
-            return validator.isInt('id');
+        const billsDateFrom: string = this.validate(ctx, (validator: ItemValidator) => {
+            return validator.optional.isString('from');
+        });
+        const billsDateTo: string = this.validate(ctx, (validator: ItemValidator) => {
+            return validator.optional.isString('to');
         });
 
-        ctx.body = await billsModel.getItem(idBills);
+        ctx.body = await billsModel.getItems(billsDateFrom, billsDateTo);
+
     }
+
 }
