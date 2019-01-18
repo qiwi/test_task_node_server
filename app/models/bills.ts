@@ -46,7 +46,8 @@ export class BillsModel {
   }
 
   public async getItemsIds(): Promise<Array<IBills>> {
-    return await pgService.getRows(`SELECT id_bills FROM aggr_bills`);
+    const result =   await pgService.getRows(`SELECT id_bills FROM aggr_bills`);
+    return result.map((b) => b.idBills);
   }
 
 }

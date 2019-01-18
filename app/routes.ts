@@ -95,7 +95,7 @@ router
    * @apiHeaderExample Headers-Example:
    *   { "Authorization": "Bearer :jwtToken" }
    *
-   * @apiSuccess {Array} result Массив id платёжных данных о пополнениях счетов.
+   * @apiSuccess {Array} result Массив id (идентефикаторов) платёжных данных о пополнениях счетов.
    */
   .get(billsProtectedRoute + "ids", bills.getItemsIds);
 
