@@ -32,12 +32,7 @@ export class BillsModel {
     offset = offset || 0;
     idFrom = idFrom || 0;
     idTo = idTo || 2147483627;
-    // console.log('idFrom');
-    // console.log(idFrom);
-    // console.log('idTo');
-    // console.log(idTo);
-    // const idFrom = 10;
-    // const idTo = 15;
+
     return await pgService.getRows(
       `
         SELECT id_bills, bills_add_timestamp, bills_amount, bills_paid_amount, bills_count, bills_paid_count

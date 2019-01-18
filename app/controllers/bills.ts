@@ -7,13 +7,6 @@ const billsModel = new BillsModel();
 
 export class Bills extends Controller {
 
-    // public getItems = async (ctx: Context): Promise<void> => {
-    //     ctx.body = await billsModel.getItems();
-    // }
-
-    // TODO:
-    // 1) в новом innots есть isDate!
-
     public getItems = async (ctx: Context): Promise<void> => {
         const dateFromStr: string = this.validate(ctx, (validator: ItemValidator) => {
             return validator.optional.isDate('from');
@@ -33,15 +26,6 @@ export class Bills extends Controller {
         const idTo: number = this.validate(ctx, (validator: ItemValidator) => {
             return validator.optional.isInt('id_to');
         });
-
-        // Закоментированный кусок кода ниже можно уже убрать, т.к. используется innots isDate
-        // Checking thant `from` and `to` argements is a date
-        // if (dateFromStr && !isISO8601(dateFromStr)) {
-        //     throw new InnoError('DATE_FROM_IS_NOT_A_DATE', 400);
-        // }
-        // if (dateToStr && !isISO8601(dateToStr)) {
-        //     throw new InnoError('DATE_TO_IS_NOT_A_DATE', 400);
-        // }
 
         // Checking that from date is lower than higher date
         const dateFrom = dateFromStr && new Date(dateFromStr);
