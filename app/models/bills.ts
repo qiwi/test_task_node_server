@@ -43,6 +43,7 @@ export class BillsModel {
         SELECT id_bills, bills_add_timestamp, bills_amount, bills_paid_amount, bills_count, bills_paid_count
         FROM aggr_bills
         WHERE  bills_add_timestamp BETWEEN $1 AND $2 AND id_bills BETWEEN $5 AND $6
+        ORDER BY id_bills
         OFFSET $3 LIMIT $4
       `,
       [dateFrom, dateTo, offset, limit, idFrom, idTo]
