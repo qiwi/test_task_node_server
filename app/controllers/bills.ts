@@ -27,9 +27,15 @@ export class Bills extends Controller {
         const limit: number = this.validate(ctx, (validator: ItemValidator) => {
             return validator.optional.isInt('limit');
         });
+        const idFrom: number = this.validate(ctx, (validator: ItemValidator) => {
+            return validator.optional.isInt('id_from');
+        });
+        const idTo: number = this.validate(ctx, (validator: ItemValidator) => {
+            return validator.optional.isInt('id_to');
+        });
 
+        // Закоментированный кусок кода ниже можно уже убрать, т.к. используется innots isDate
         // Checking thant `from` and `to` argements is a date
-        // P.S. Закоментированный кусок кода ниже можно уже убрать, т.к. используется innots isDate
         // if (dateFromStr && !isISO8601(dateFromStr)) {
         //     throw new InnoError('DATE_FROM_IS_NOT_A_DATE', 400);
         // }
@@ -45,7 +51,7 @@ export class Bills extends Controller {
             throw new InnoError('FROM_DATE_IS_MORE_THAN_TO_DATE', 400);
         }
 
-        ctx.body = await billsModel.getItems({ dateFrom, dateTo, offset, limit });
+        ctx.body = await billsModel.getItems({ dateFrom, dateTo, offset, limit, idFrom, idTo });
 
     }
 
