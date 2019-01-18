@@ -31,15 +31,19 @@ export class BillsModel {
     limit = limit || 100;
     offset = offset || 0;
     idFrom = idFrom || 0;
-    idTo = idTo || 2147483627; // По идее это max int, однако хотелось бы как-то иначе верхнюю границу определить
-
+    idTo = idTo || 2147483627;
+    // console.log('idFrom');
+    // console.log(idFrom);
+    // console.log('idTo');
+    // console.log(idTo);
+    // const idFrom = 10;
+    // const idTo = 15;
     return await pgService.getRows(
       `
         SELECT id_bills, bills_add_timestamp, bills_amount, bills_paid_amount, bills_count, bills_paid_count
         FROM aggr_bills
         WHERE  bills_add_timestamp BETWEEN $1 AND $2 AND id_bills BETWEEN $5 AND $6
         OFFSET $3 LIMIT $4
-        ORDER BY id_bills
       `,
       [dateFrom, dateTo, offset, limit, idFrom, idTo]
     );
