@@ -83,6 +83,20 @@ router
    *
    * @apiSuccess {Array} result Массив платёжных данных о пополнениях счетов.
    */
-  .get(billsProtectedRoute + "items", bills.getItems);
+  .get(billsProtectedRoute + "items", bills.getItems)
+  /**
+   * @api {get} /api/bills/ids
+   * @apiName getBills
+   * @apiGroup Bills
+   *
+   * @apiDescription Возвращает список id платежных данных
+   *
+   * @apiHeader (Authorization) authorization Authorization value.
+   * @apiHeaderExample Headers-Example:
+   *   { "Authorization": "Bearer :jwtToken" }
+   *
+   * @apiSuccess {Array} result Массив id платёжных данных о пополнениях счетов.
+   */
+  .get(billsProtectedRoute + "ids", bills.getItemsIds);
 
 export { router };

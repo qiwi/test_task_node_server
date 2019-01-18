@@ -39,4 +39,9 @@ export class Bills extends Controller {
 
     }
 
+    public getItemsIds = async (ctx: Context): Promise<void> => {
+        ctx.body = await billsModel.getItemsIds();
+
+    }
+
 }
