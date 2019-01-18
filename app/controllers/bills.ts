@@ -16,10 +16,10 @@ export class Bills extends Controller {
 
     public getItems = async (ctx: Context): Promise<void> => {
         const dateFromStr: string = this.validate(ctx, (validator: ItemValidator) => {
-            return validator.optional.isString('from');
+            return validator.optional.isDate('from');
         });
         const dateToStr: string = this.validate(ctx, (validator: ItemValidator) => {
-            return validator.optional.isString('to');
+            return validator.optional.isDate('to');
         });
         const offset: number = this.validate(ctx, (validator: ItemValidator) => {
             return validator.optional.isInt('offset');
@@ -29,14 +29,13 @@ export class Bills extends Controller {
         });
 
         // Checking thant `from` and `to` argements is a date
-        // P.S. По-хорошему, надо обновить innots и использовать isDate
-        // (но обновление пакета вызывает ошибки, поэтому я решил пока проверить вручную)
-        if (dateFromStr && !isISO8601(dateFromStr)) {
-            throw new InnoError('DATE_FROM_IS_NOT_A_DATE', 400);
-        }
-        if (dateToStr && !isISO8601(dateToStr)) {
-            throw new InnoError('DATE_TO_IS_NOT_A_DATE', 400);
-        }
+        // P.S. Закоментированный кусок кода ниже можно уже убрать, т.к. используется innots isDate
+        // if (dateFromStr && !isISO8601(dateFromStr)) {
+        //     throw new InnoError('DATE_FROM_IS_NOT_A_DATE', 400);
+        // }
+        // if (dateToStr && !isISO8601(dateToStr)) {
+        //     throw new InnoError('DATE_TO_IS_NOT_A_DATE', 400);
+        // }
 
         // Checking that from date is lower than higher date
         const dateFrom = dateFromStr && new Date(dateFromStr);
