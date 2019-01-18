@@ -32,6 +32,7 @@ export class BillsModel {
         FROM aggr_bills
         WHERE  bills_add_timestamp BETWEEN $1 AND $2
         OFFSET $3 LIMIT $4
+        ORDER BY id_bills
       `,
       [dateFrom, dateTo, offset, limit]
     );
