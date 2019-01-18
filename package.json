@@ -13,13 +13,14 @@
   "description": "",
   "private": true,
   "dependencies": {
-    "config": "^1.30.0",
-    "innots": "^1.1.7"
+    "config": "^1.31.0",
+    "innots": "^1.2.5",
+    "validator": "^10.11.0"
   },
   "devDependencies": {
-    "apidoc": "^0.17.5",
-    "tslint": "^5.7.0",
+    "apidoc": "^0.17.7",
+    "tslint": "^5.12.1",
     "tslint-eslint-rules": "^4.1.1",
-    "typescript": "^2.6.2"
+    "typescript": "^2.9.2"
   }
 }
