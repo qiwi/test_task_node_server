@@ -13,7 +13,6 @@ CREATE UNIQUE INDEX "idx_user_email" ON "obj_user" (
 	"user_email"
 );
 
-
 COMMENT ON TABLE "obj_user" IS 'Пользователи';
 
 CREATE TABLE "aggr_bills" (
@@ -26,3 +25,8 @@ CREATE TABLE "aggr_bills" (
 	PRIMARY KEY("id_bills"),
 	CONSTRAINT "constr_bills_add_timestamp_unique" UNIQUE("bills_add_timestamp")
 );
+
+-- Fixing bills_add_timestamp for aggr_bills in order to get correct timestamps in future inserts
+ALTER TABLE aggr_bills
+    ALTER COLUMN bills_add_timestamp
+    SET DEFAULT now();

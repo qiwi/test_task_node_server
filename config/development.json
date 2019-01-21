@@ -1,26 +1,26 @@
 {
-  "appConfig": {
-    "apiPrefix": "/api/",
-    "publicApiPrefix": "/api/public/",
-    "port": 2211,
-    "enableLogMiddleware": true,
-    "logLevel": "DEBUG",
-    "jwt": {
-      "secret": "jwt_secret",
-      "publicPath": "^\/api/public"
+    "appConfig": {
+      "apiPrefix": "/api/",
+      "publicApiPrefix": "/api/public/",
+      "port": 2211,
+      "enableLogMiddleware": true,
+      "logLevel": "DEBUG",
+      "jwt": {
+        "secret": "jwt_secret",
+        "publicPath": "^\/api/public"
+      },
+      "cors": {
+        "enabled": true,
+        "credentials": true
+      }
     },
-    "cors": {
-      "enabled": true,
-      "credentials": true
+    "db": {
+      "host": "localhost",
+      "port": 5432,
+      "database": "postgres",
+      "user": "postgres",
+      "password": "yoursecretpostgrespassword",
+      "max": 10,
+      "idleTimeoutMillis": 30000
     }
-  },
-  "db": {
-    "host": "localhost",
-    "port": 5433,
-    "database": "postgres",
-    "user": "postgres",
-    "password": "yoursecretpostgrespassword",
-    "max": 10,
-    "idleTimeoutMillis": 30000
   }
-}

@@ -1,21 +1,24 @@
 import * as config from 'config';
 import * as Router from 'koa-router';
-import {AuthController} from "./controllers/auth";
-import {Users as UsersController} from './controllers/users';
-import {Context} from "koa";
+import { AuthController } from './controllers/auth';
+import { Users as UsersController } from './controllers/users';
+import { Bills as BillsController } from './controllers/bills';
+import { Context } from 'koa';
 
 const router = new Router();
 const users = new UsersController();
+const bills = new BillsController();
 const auth = new AuthController();
 
 const usersProtectedRoute = config.get('appConfig.apiPrefix') + 'users/';
+const billsProtectedRoute = config.get('appConfig.apiPrefix') + 'bills/';
 const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
 const healthcheckRoute = config.get('appConfig.publicApiPrefix') + 'healthcheck';
 
 router
 
     /**
-     * @api {get} /api/public/healthcheck
+     * @api {post} /api/public/healthcheck
      * @apiName healthcheck
      * @apiGroup healthcheck
      *
@@ -83,6 +86,69 @@ router
      *
      * @apiSuccess {Object} result пользователь.
      */
-    .get(usersProtectedRoute + 'item', users.getItem);
+    .get(usersProtectedRoute + 'item', users.getItem)
+    /**
+     * @api {get} /api/users/item
+     * @apiName getUserByEmail
+     * @apiGroup User
+     *
+     * @apiDescription Возвращает пользователя по email
+     *
+     * @apiHeader (Authorization) authorization Authorization value.
+     * @apiHeaderExample Headers-Example:
+     *   { "Authorization": "Bearer :jwtToken" }
+     *
+     * @apiParam {String} email Идентификатор пользователя.
+     *
+     * @apiSuccess {Object} result пользователь.
+     */
+    .get(usersProtectedRoute + 'itembyemail', users.getItemByEmail)
+    /**
+     * @api {get} /api/bills/items
+     * @apiName getBills
+     * @apiGroup Bill
+     *
+     * @apiDescription Возвращает список законопроект
+     *
+     * * @apiHeader (Authorization) authorization Authorization value.
+     * @apiHeaderExample Headers-Example:
+     *   { "Authorization": "Bearer :jwtToken" }
+     *
+     * @apiSuccess {Array} result Массив созданных законопроект.
+     */
+    .get(billsProtectedRoute + 'items', bills.getItems)
+    /**
+     * @api {get} /api/bills/item
+     * @apiName getBill
+     * @apiGroup Bill
+     *
+     * @apiDescription Возвращает законопроект по id
+     *
+     * @apiHeader (Authorization) authorization Authorization value.
+     * @apiHeaderExample Headers-Example:
+     *   { "Authorization": "Bearer :jwtToken" }
+     *
+     * @apiParam {Number} id Идентификатор законопроект.
+     *
+     * @apiSuccess {Object} result законопроект.
+     */
+    .get(billsProtectedRoute + 'item', bills.getItem)
+    /**
+     * @api {get} /api/bills/itemsbydates
+     * @apiName getBillByDate
+     * @apiGroup Bill
+     *
+     * @apiDescription Возвращает законопроект по dates
+     *
+     * @apiHeader (Authorization) authorization Authorization value.
+     * @apiHeaderExample Headers-Example:
+     *   { "Authorization": "Bearer :jwtToken" }
+     *
+     * @apiParam {String} from Формат: "2018-04-01 03:50:00".
+     * @apiParam {String} to Формат: "2018-04-01 03:50:00".
+     *
+     * @apiSuccess {Array} result законопроект.
+     */
+    .get(billsProtectedRoute + 'itemsbydates', bills.getItemsByDates);
 
-export {router};
+export { router };
