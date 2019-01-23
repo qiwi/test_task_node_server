@@ -13,7 +13,6 @@ CREATE UNIQUE INDEX "idx_user_email" ON "obj_user" (
 	"user_email"
 );
 
-
 COMMENT ON TABLE "obj_user" IS 'Пользователи';
 
 CREATE TABLE "aggr_bills" (
