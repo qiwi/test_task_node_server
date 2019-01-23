@@ -25,8 +25,3 @@ CREATE TABLE "aggr_bills" (
 	PRIMARY KEY("id_bills"),
 	CONSTRAINT "constr_bills_add_timestamp_unique" UNIQUE("bills_add_timestamp")
 );
-
--- Fixing bills_add_timestamp for aggr_bills in order to get correct timestamps in future inserts
-ALTER TABLE aggr_bills
-    ALTER COLUMN bills_add_timestamp
-    SET DEFAULT now();

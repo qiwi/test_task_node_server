@@ -18,7 +18,7 @@ const healthcheckRoute = config.get('appConfig.publicApiPrefix') + 'healthcheck'
 router
 
     /**
-     * @api {post} /api/public/healthcheck
+     * @api {get} /api/public/healthcheck
      * @apiName healthcheck
      * @apiGroup healthcheck
      *
@@ -88,7 +88,7 @@ router
      */
     .get(usersProtectedRoute + 'item', users.getItem)
     /**
-     * @api {get} /api/users/item
+     * @api {get} /api/users/item-by-email
      * @apiName getUserByEmail
      * @apiGroup User
      *
@@ -102,19 +102,19 @@ router
      *
      * @apiSuccess {Object} result пользователь.
      */
-    .get(usersProtectedRoute + 'itembyemail', users.getItemByEmail)
+    .get(usersProtectedRoute + 'item-by-email', users.getItemByEmail)
     /**
      * @api {get} /api/bills/items
      * @apiName getBills
      * @apiGroup Bill
      *
-     * @apiDescription Возвращает список законопроект
+     * @apiDescription Возвращает список bill
      *
      * * @apiHeader (Authorization) authorization Authorization value.
      * @apiHeaderExample Headers-Example:
      *   { "Authorization": "Bearer :jwtToken" }
      *
-     * @apiSuccess {Array} result Массив созданных законопроект.
+     * @apiSuccess {Array} result Массив созданных bill.
      */
     .get(billsProtectedRoute + 'items', bills.getItems)
     /**
@@ -122,33 +122,33 @@ router
      * @apiName getBill
      * @apiGroup Bill
      *
-     * @apiDescription Возвращает законопроект по id
+     * @apiDescription Возвращает bill по id
      *
      * @apiHeader (Authorization) authorization Authorization value.
      * @apiHeaderExample Headers-Example:
      *   { "Authorization": "Bearer :jwtToken" }
      *
-     * @apiParam {Number} id Идентификатор законопроект.
+     * @apiParam {Number} id Идентификатор bill.
      *
-     * @apiSuccess {Object} result законопроект.
+     * @apiSuccess {Object} result bill.
      */
     .get(billsProtectedRoute + 'item', bills.getItem)
     /**
-     * @api {get} /api/bills/itemsbydates
+     * @api {get} /api/bills/items-by-dates
      * @apiName getBillByDate
      * @apiGroup Bill
      *
-     * @apiDescription Возвращает законопроект по dates
+     * @apiDescription Возвращает bill по dates
      *
      * @apiHeader (Authorization) authorization Authorization value.
      * @apiHeaderExample Headers-Example:
      *   { "Authorization": "Bearer :jwtToken" }
      *
-     * @apiParam {String} from Формат: "2018-04-01 03:50:00".
-     * @apiParam {String} to Формат: "2018-04-01 03:50:00".
+     * @apiParam {String} fromDate Формат ISO 8601 UTC.
+     * @apiParam {String} toDate Формат ISO 8601 UTC.
      *
-     * @apiSuccess {Array} result законопроект.
+     * @apiSuccess {Array} result bills.
      */
-    .get(billsProtectedRoute + 'itemsbydates', bills.getItemsByDates);
+    .get(billsProtectedRoute + 'items-by-dates', bills.getItemsByDates);
 
 export { router };

@@ -28,7 +28,7 @@ export class BillsModel {
         );
     }
 
-    public async getItemsByDates(from: string, to: string): Promise<Array<IBills>> {
+    public async getItemsByDates(fromDate: string, toDate: string): Promise<Array<IBills>> {
         return await pgService.getRows(
             `SELECT id_bills,
                 bills_count,
@@ -39,7 +39,7 @@ export class BillsModel {
             FROM aggr_bills
             WHERE bills_add_timestamp >= $1 AND bills_add_timestamp < $2
             `,
-            [from, to]
+            [fromDate, toDate]
         );
     }
 }
