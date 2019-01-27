@@ -112,9 +112,7 @@ Feature: Aggregated bills
       | 2    | 434         | 50555.72     |
       | 3    | 430         | 55318.34     |
 
-  Scenario: Try to get aggregated bills with wrong parameters
-
-  Scenario Outline: Get aggregated bills filtered by date
+  Scenario Outline: Try to get aggregated bills with wrong parameters
     Given I am authenticated as "candidate@e.ru"
     When I send a GET request to "/api/bills/aggregated" with:
     """
