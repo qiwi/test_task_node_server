@@ -100,7 +100,7 @@ Feature: Aggregated bills
       "total": 3,
       "items": [
         {
-          "billsCount": "<bills_count>",
+          "billsCount": <bills_count>,
           "billsAmount": <bills_amount>
         }
       ]
