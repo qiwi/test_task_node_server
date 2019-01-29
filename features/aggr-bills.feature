@@ -13,7 +13,7 @@ Feature: Aggregated bills
          "idBills": {"type": "number"},
          "billsCount": {"type": "number"},
          "billsAmount": {"type": "number"},
-         "billsPaidCount": {"type": "string"},
+         "billsPaidCount": {"type": "number"},
          "billsPaidAmount": {"type": "number"},
          "billsAddTimestamp": {"type": "string"}
       },
