@@ -10,7 +10,7 @@ Feature: Aggregated bills
       "id": "aggregatedBillsItem",
       "type": "object",
       "properties": {
-         "idBills": {"type": "string"},
+         "idBills": {"type": "number"},
          "billsCount": {"type": "string"},
          "billsAmount": {"type": "number"},
          "billsPaidCount": {"type": "string"},
