@@ -3,14 +3,20 @@ import * as Router from 'koa-router';
 import {AuthController} from "./controllers/auth";
 import {UsersController} from './controllers/users';
 import {Context} from "koa";
+import {BillsController} from "./controllers/bills";
 
 const router = new Router();
 const users = new UsersController();
+const bills = new BillsController();
 const auth = new AuthController();
 
-const usersProtectedRoute = config.get('appConfig.apiPrefix') + 'users/';
-const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
-const healthcheckRoute = config.get('appConfig.publicApiPrefix') + 'healthcheck';
+const apiPrefix = config.get('appConfig.apiPrefix');
+const publicApiPrefix = config.get('appConfig.publicApiPrefix');
+
+const usersProtectedRoute = apiPrefix + 'users/';
+const billsProtectedRoute = apiPrefix + 'bills';
+const authPublicRoute = publicApiPrefix + 'auth/';
+const healthcheckRoute = publicApiPrefix + 'healthcheck';
 
 router
 
@@ -83,6 +89,57 @@ router
      *
      * @apiSuccess {Object} result пользователь.
      */
-    .get(usersProtectedRoute + 'item', users.getItem);
+    .get(usersProtectedRoute + 'item', users.getItem)
+    /**
+     * @api {get} /api/bills/aggregated
+     * @apiName getAggregatedBills
+     * @apiGroup Bills
+     *
+     * @apiDescription Возвращает аггрегированные счета
+     *
+     * @apiHeader (Authorization) authorization Authorization value
+     * @apiHeaderExample Headers-Example:
+     *  {"Authorization": "Bearer :jwtToken"}
+     *
+     * @apiParam {string} [fromDate] ISO 8601
+     * @apiParamExample {string} fromDate
+     *  2019-01-26T23:20:23.347Z
+     * @apiParam {string} [toDate] ISO 8601, **required** when `page` is greater than `1`
+     * @apiParamExample {string} toDate
+     *  2019-01-26T23:30:23.347Z
+     * @apiParam {Number{1..}} [page=1] When `page` is greater than `1`, then it **must** be used with `toDate` filter
+     * @apiParam {Number{1..50}} [perPage=10] items per page
+     *
+     * @apiSuccessExample Success-Response:
+     *  HTTP/1.1 200 OK
+     *  {
+     *      "items": [
+     *          {
+     *              "idBills": 4277,
+     *              "billsCount": 106,
+     *              "billsAmount": 11974.18,
+     *              "billsPaidCount": 100,
+     *              "billsPaidAmount": 9984.18,
+     *              "billsAddTimestamp": "2018-04-01T04:15:00.000Z"
+     *          }
+     *      ],
+     *      "total": 500,
+     *      "page": 1,
+     *      "perPage": 1
+     *  }
+     *
+     * @apiErrorExample {json} Error-Response:
+     *  HTTP/1.1 400 Bad Request
+     *  {
+     *    "error": "ERROR_VALIDATION_FAILED",
+     *    "details": {
+     *      "invalidField": "page",
+     *      "invalidValue": 2,
+     *      "message": "\"page\" greater than 1 is not allowed without \"toDate\" parameter"
+     *    }
+     *  }
+     */
+    .get(billsProtectedRoute + '/aggregated', bills.aggregatedValidation, bills.aggregated)
+;
 
 export {router};

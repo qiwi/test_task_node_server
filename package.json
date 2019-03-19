@@ -5,8 +5,10 @@
     "start": "node app.js",
     "build": "tsc",
     "watch": "tsc --watch",
-    "lint": "tslint 'app/**/*.ts' --project tsconfig.json",
-    "doc": "apidoc -f app/routes.ts -o docs"
+    "lint": "tslint 'app/**/*.ts,features/support/**/*.ts' --project tsconfig.json",
+    "doc": "apidoc -f app/routes.ts -o docs",
+    "test": "node -r ts-node/register ./node_modules/.bin/cucumber-js --require 'features/support/**/*.ts'",
+    "test-with-debug": "node -r ts-node/register --inspect ./node_modules/.bin/cucumber-js --require 'features/support/**/*.ts'"
   },
   "author": "",
   "license": "",
@@ -14,10 +16,21 @@
   "private": true,
   "dependencies": {
     "config": "^1.30.0",
-    "innots": "^1.1.7"
+    "innots": "^1.1.7",
+    "squel": "^5.12.2"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/chai-subset": "^1.3.1",
+    "@types/cucumber": "^4.0.4",
+    "@types/node-fetch": "^2.1.4",
     "apidoc": "^0.17.5",
+    "chai": "^4.2.0",
+    "chai-subset": "^1.6.0",
+    "cucumber": "^5.1.0",
+    "jsonschema": "^1.2.4",
+    "node-fetch": "^2.3.0",
+    "ts-node": "^8.0.2",
     "tslint": "^5.7.0",
     "tslint-eslint-rules": "^4.1.1",
     "typescript": "^2.6.2"

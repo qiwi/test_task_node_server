@@ -52,6 +52,104 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/api/bills/aggregated",
+    "title": "",
+    "name": "getAggregatedBills",
+    "group": "Bills",
+    "description": "<p>Возвращает аггрегированные счета</p>",
+    "header": {
+      "fields": {
+        "Authorization": [
+          {
+            "group": "Authorization",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Headers-Example:",
+          "content": "{\"Authorization\": \"Bearer :jwtToken\"}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "fromDate",
+            "description": "<p>ISO 8601</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "toDate",
+            "description": "<p>ISO 8601, <strong>required</strong> when <code>page</code> is greater than <code>1</code></p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "size": "1..",
+            "optional": true,
+            "field": "page",
+            "defaultValue": "1",
+            "description": "<p>page <strong>must</strong> be used with <code>toDate</code> filter when <code>page</code> is greater than <code>1</code></p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "size": "1..50",
+            "optional": true,
+            "field": "perPage",
+            "defaultValue": "10",
+            "description": "<p>items per page</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "fromDate",
+          "content": "2019-01-26T23:20:23.347Z",
+          "type": "string"
+        },
+        {
+          "title": "toDate",
+          "content": "2019-01-26T23:30:23.347Z",
+          "type": "string"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"items\": [\n        {\n            \"idBills\": 4277,\n            \"billsCount\": 106,\n            \"billsAmount\": 11974.18,\n            \"billsPaidCount\": 100,\n            \"billsPaidAmount\": 9984.18,\n            \"billsAddTimestamp\": \"2018-04-01T04:15:00.000Z\"\n        }\n    ],\n    \"total\": 500,\n    \"page\": 1,\n    \"perPage\": 1\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 400 Bad Request\n{\n  \"error\": \"ERROR_VALIDATION_FAILED\",\n  \"details\": {\n    \"invalidField\": \"page\",\n    \"invalidValue\": 2,\n    \"message\": \"\\\"page\\\" greater than 1 is not allowed without \\\"toDate\\\" parameter\"\n  }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./app/routes.ts",
+    "groupTitle": "Bills"
+  },
+  {
+    "type": "get",
     "url": "/api/users/item",
     "title": "",
     "name": "getUser",
