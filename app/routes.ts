@@ -88,6 +88,6 @@ router
      * @apiSuccess {Object} result пользователь.
      */
     .get(usersProtectedRoute + 'item', users.getItem)
-    .get(billsProtectedRoute + 'data', bills.getBills)
+    .get(billsProtectedRoute + 'data', bills.getBills);
 
 export {router};
