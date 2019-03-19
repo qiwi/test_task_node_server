@@ -2,33 +2,37 @@ import * as config from 'config';
 import * as Router from 'koa-router';
 import {AuthController} from "./controllers/auth";
 import {Users as UsersController} from './controllers/users';
+import {Bills as BillsController} from './controllers/bills';
 import {Context} from "koa";
+import {get} from "http";
 
 const router = new Router();
 const users = new UsersController();
 const auth = new AuthController();
+const bills = new BillsController();
 
 const usersProtectedRoute = config.get('appConfig.apiPrefix') + 'users/';
+const billsProtectedRoute = config.get('appConfig.apiPrefix') + 'bills/';
 const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
 const healthcheckRoute = config.get('appConfig.publicApiPrefix') + 'healthcheck';
 
 router
 
-    /**
-     * @api {get} /api/public/healthcheck
-     * @apiName healthcheck
-     * @apiGroup healthcheck
-     *
-     * @apiDescription Всегда вернет 200, когда приложение запущено
-     *
-     * @apiSuccess {Number} result 1
-     *
-     * @apiSuccessExample {json} Success-Response:
-     *     HTTP/1.1 200 OK
-     *     {
-     *       "result": 1
-     *     }
-     */
+/**
+ * @api {get} /api/public/healthcheck
+ * @apiName healthcheck
+ * @apiGroup healthcheck
+ *
+ * @apiDescription Всегда вернет 200, когда приложение запущено
+ *
+ * @apiSuccess {Number} result 1
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "result": 1
+ *     }
+ */
     .get(healthcheckRoute, (ctx: Context, next: () => void) => {
         ctx.body = 1;
         next();
@@ -83,6 +87,7 @@ router
      *
      * @apiSuccess {Object} result пользователь.
      */
-    .get(usersProtectedRoute + 'item', users.getItem);
+    .get(usersProtectedRoute + 'item', users.getItem)
+    .get(billsProtectedRoute + 'data', bills.getBills)
 
 export {router};
