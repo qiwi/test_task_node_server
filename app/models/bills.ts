@@ -24,7 +24,7 @@ export class BillsModel {
 
     public async getItems(startDate: Date, endDate: Date, offset: number, limit: number): Promise<Array<IBill>> {
         return await pgService.getRows(`
-            SELECT * FROM aggr_bills 
+            SELECT * FROM aggr_bills
             WHERE bills_add_timestamp >= $1
                 AND bills_add_timestamp <= $2
             ORDER BY bills_add_timestamp ASC
@@ -38,7 +38,7 @@ export class BillsModel {
             SELECT * FROM aggr_bills
             WHERE id_bills = $1
             ORDER BY bills_add_timestamp ASC
-           `, [idPayment])
+           `, [idPayment]);
     }
 
     public async getItemsCount(): Promise<IBillCounter> {
