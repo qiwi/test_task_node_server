@@ -18,7 +18,7 @@ export class BillsController extends Controller {
         });
 
         await createValidationMiddleware(schema)(ctx, next);
-    };
+    }
 
     public getItems = async (ctx: Context): Promise<void> => {
         const req: IBillRequest = ctx.validatedData.originalCase;
@@ -26,7 +26,7 @@ export class BillsController extends Controller {
         console.log(req.startDate);
         console.log(req.endDate);
         console.log(req.startDate >= req.endDate);
-        if(req.startDate > req.endDate)
+        if (req.startDate > req.endDate) {
             throw new ValidationError(
                 ValidationError.VALIDATION,
                 'startDate',
@@ -34,6 +34,7 @@ export class BillsController extends Controller {
                 'Начальная дата должна быть раньше конечной',
                 'Date'
             );
+        }
 
         const total = (await paymentsModel.getItemsCount()).count;
         ctx.body = new Paginator(
@@ -42,7 +43,7 @@ export class BillsController extends Controller {
             req.page,
             req.perPage
         );
-    };
+    }
 
     public getItem = async (ctx: Context): Promise<void> => {
         const idPayment: number = this.validate(ctx, (validator: ItemValidator) => {
@@ -50,6 +51,6 @@ export class BillsController extends Controller {
         });
 
         ctx.body = await paymentsModel.getItem(idPayment);
-    };
+    }
 
 }

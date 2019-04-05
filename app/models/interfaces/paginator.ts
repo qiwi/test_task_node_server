@@ -2,7 +2,7 @@ export interface IPaginator<T> {
     items: T[];
     total: number;
     page: number;
-    perPage: number
+    perPage: number;
 }
 
 export class Paginator<T> implements IPaginator<T> {

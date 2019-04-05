@@ -10,7 +10,7 @@ export interface IBill {
 }
 
 export interface IBillCounter {
-    count: number
+    count: number;
 }
 
 export interface IBillRequest {
