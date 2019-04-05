@@ -3,12 +3,15 @@ import * as Router from 'koa-router';
 import {AuthController} from "./controllers/auth";
 import {UsersController} from './controllers/users';
 import {Context} from "koa";
+import {BillsController} from "./controllers/bills";
 
 const router = new Router();
+const bills = new BillsController();
 const users = new UsersController();
 const auth = new AuthController();
 
 const usersProtectedRoute = config.get('appConfig.apiPrefix') + 'users/';
+const billsProtectedRoute = config.get('appConfig.apiPrefix') + 'bills/';
 const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
 const healthcheckRoute = config.get('appConfig.publicApiPrefix') + 'healthcheck';
 
@@ -83,6 +86,74 @@ router
      *
      * @apiSuccess {Object} result пользователь.
      */
-    .get(usersProtectedRoute + 'item', users.getItem);
+    .get(usersProtectedRoute + 'item', users.getItem)
+    /**
+     * @api {get} /api/bill/item
+     * @apiName getBill
+     * @apiGroup Bill
+     *
+     * @apiDescription Возвращает платежные данные по id
+     *
+     * @apiHeader (Authorization) authorization Authorization value.
+     * @apiHeaderExample Headers-Example:
+     *   { "Authorization": "Bearer :jwtToken" }
+     *
+     * @apiParam {Number} id Идентификатор пользователя.
+     *
+     * @apiSuccess {Object} result Объект платежных данных
+     */
+    .get(billsProtectedRoute + "item", bills.getItem)
+    /**
+     * @api {get} /api/bills/items
+     * @apiName getBills
+     * @apiGroup Bill
+     *
+     * @apiDescription Возвращает платежные данные
+     *
+     * @apiHeader (Authorization) authorization Authorization value.
+     * @apiHeaderExample Headers-Example:
+     *   { "Authorization": "Bearer :jwtToken" }
+     *
+     * @apiParam {number} page Страница
+     * @apiParam {number} perPage Количество на страницу
+     * @apiParam {string} startDate Начальная дата выборки
+     * @apiParamExample {string} startDate
+     *   2019-04-05T21:40:02.377Z
+     * @apiParam {string} endDate Конечная дата выборки
+     * @apiParamExample {string} endDate
+     *   2019-04-05T21:40:02.377Z
+     *
+     * @apiSuccess {Array} result Массив платежных данных
+     *
+     * @apiSuccessExample Success-Response:
+     *   {
+     *       "items": [
+     *           {
+     *               "idBills": 832,
+     *               "billsAddTimestamp": "2018-04-01T00:10:00.000Z",
+     *               "billsAmount": 62761.54,
+     *               "billsPaidAmount": 53934.54,
+     *               "billsCount": 399,
+     *               "billsPaidCount": 369
+     *           }
+     *       ],
+     *       "total": 4784,
+     *       "page": 1,
+     *       "perPage": 1
+     *   }
+     *
+     *  @apiErrorExample {json} Error-Response
+     *  HTTP/1.1 400 Bad Request
+     *  {
+     *      "error": "ERROR_VALIDATION_VALIDATION",
+     *      "details": {
+     *          "invalidField": "startDate",
+     *          "invalidValue": "2019-04-06T21:40:02.000Z",
+     *          "message": "Начальная дата должна быть раньше конечной",
+     *          "type": "Date"
+     *      }
+     *  }
+     */
+    .get(billsProtectedRoute + "items", bills.validator, bills.getItems);
 
 export {router};
