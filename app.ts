@@ -1,7 +1,6 @@
 import * as config from "config";
 import { IAppConfig, InnotsApp, PgPool, PgService } from "innots";
 
-
 import { router } from "./app/routes";
 
 console.log('Starting application with', config);

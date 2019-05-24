@@ -1,22 +1,17 @@
-import * as config from 'config';
-import * as Router from 'koa-router';
-import { AuthController } from "./controllers/auth";
-import { UsersController } from './controllers/users';
-import { BillsController } from './controllers/bills';
-import { Context } from "koa";
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const config = require("config");
+const Router = require("koa-router");
+const auth_1 = require("./controllers/auth");
+const users_1 = require("./controllers/users");
 const router = new Router();
-const users = new UsersController();
-const auth = new AuthController();
-const bills = new BillsController();
-
+exports.router = router;
+const users = new users_1.UsersController();
+const auth = new auth_1.AuthController();
 const usersProtectedRoute = config.get('appConfig.apiPrefix') + 'users/';
-const billsProtectedRoute = config.get('appConfig.apiPrefix') + 'bills/';
 const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
 const healthcheckRoute = config.get('appConfig.publicApiPrefix') + 'healthcheck';
-
 router
-
     /**
      * @api {get} /api/public/healthcheck
      * @apiName healthcheck
@@ -32,10 +27,10 @@ router
      *       "result": 1
      *     }
      */
-    .get(healthcheckRoute, (ctx: Context, next: () => void) => {
-        ctx.body = 1;
-        next();
-    })
+    .get(healthcheckRoute, (ctx, next) => {
+    ctx.body = 1;
+    next();
+})
     /**
      * @api {post} /api/public/auth/login
      * @apiName login
@@ -86,20 +81,5 @@ router
      *
      * @apiSuccess {Object} result пользователь.
      */
-    .get(usersProtectedRoute + 'item', users.getItem)
-    /**
-     * @api {get} /api/bills/items
-     * @apiName getItems
-     * @apiGroup Bills
-     *
-     * @apiDescription Возвращает все палтёжные данные
-     * 
-     * @apiHeaderExample Headers-Example:
-     *   { "Authorization": "Bearer :jwtToken" }
-     *
-     * @apiSuccess {Object} result Массив платёжных данных
-     * 
-    */
-    .get(billsProtectedRoute + 'items', bills.getItems);
-
-export { router };
+    .get(usersProtectedRoute + 'item', users.getItem);
+//# sourceMappingURL=routes.js.map
