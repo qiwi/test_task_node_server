@@ -1,20 +1,20 @@
 import { Controller, ItemValidator } from 'innots';
 import { Context } from 'koa';
-import { UsersModel } from '../models/users';
+import { BillsModel } from '../models/bills';
 
-const usersModel = new UsersModel();
+const billsModel = new BillsModel();
 
-export class UsersController extends Controller {
+export class BillsController extends Controller {
 
     public getItems = async (ctx: Context): Promise<void> => {
-        ctx.body = await usersModel.getItems();
+        ctx.body = await billsModel.getItems();
     }
 
-    public getItem = async (ctx: Context): Promise<void> => {
-        const idUser: number = this.validate(ctx, (validator: ItemValidator) => {
-            return validator.isInt('id');
-        });
+    // public getItem = async (ctx: Context): Promise<void> => {
+    //     const idUser: number = this.validate(ctx, (validator: ItemValidator) => {
+    //         return validator.isInt('id');
+    //     });
 
-        ctx.body = await usersModel.getItem(idUser);
-    }
+    //     ctx.body = await billsModel.getItem(idUser);
+    // }
 }

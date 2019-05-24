@@ -100,6 +100,41 @@ router
      * @apiSuccess {Object} result Массив платёжных данных
      * 
     */
-    .get(billsProtectedRoute + 'items', bills.getItems);
+    .get(billsProtectedRoute + 'items', bills.getItems)
+    /**
+     * @api {get} /api/bills/range
+     * @apiName getItems
+     * @apiGroup Bills
+     *
+     * @apiDescription Возвращает все палтёжные данные в отрезке
+     * 
+     * @apiHeaderExample Headers-Example:
+     *   { "Authorization": "Bearer :jwtToken" }
+     *
+     * @apiParam {String} start Начало отрезка.
+     * @apiParam {String} end Конец отрезка.
+     * 
+     * @apiSuccess {Object} result Массив платёжных данных
+     * 
+    */
+    .get(billsProtectedRoute + 'range', bills.getRange)
+    /**
+     * @api {get} /api/bills/items
+     * @apiName getItems
+     * @apiGroup Bills
+     *
+     * @apiDescription Возвращает последнии несколько платёжных данных
+     * 
+     * @apiHeaderExample Headers-Example:
+     *   { "Authorization": "Bearer :jwtToken" }
+     *
+     * @apiParam {Number} quantity Колличество
+     *
+     * @apiSuccess {Object} result Массив платёжных данных
+     * 
+    */
+    .get(billsProtectedRoute + 'last', bills.getLast)
+
+    ;
 
 export { router };

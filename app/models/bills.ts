@@ -11,15 +11,37 @@ export interface IBills {
 
 export class BillsModel {
     public async getItems(): Promise<Array<IBills>> {
-        return await pgService.getRows(
-            `
-SELECT 
-id_bills
-, bills_count
-, bills_amount
-, bills_paid_count
-, bills_paid_amount
-, bills_add_timestamp
-FROM aggr_bills`);
+        return await pgService.getRows(`SELECT
+                                        id_bills
+                                        , bills_count
+                                        , bills_amount
+                                        , bills_paid_count
+                                        , bills_paid_amount
+                                        , bills_add_timestamp
+                                        FROM aggr_bills`);
+    }
+
+    public async getRange(start: string, end: string): Promise<Array<IBills>> {
+        return await pgService.getRows(`SELECT 
+                                        id_bills
+                                        , bills_count
+                                        , bills_amount
+                                        , bills_paid_count
+                                        , bills_paid_amount
+                                        , bills_add_timestamp
+                                        FROM aggr_bills WHERE bills_add_timestamp >= $1 AND bills_add_timestamp <= $2`
+            , [start, end]);
+    }
+
+    public async getLast(quantity: number): Promise<Array<IBills>> {
+        return await pgService.getRows(`SELECT 
+                                        id_bills
+                                        , bills_count
+                                        , bills_amount
+                                        , bills_paid_count
+                                        , bills_paid_amount
+                                        , bills_add_timestamp
+                                        FROM aggr_bills ORDER BY bills_add_timestamp DESC LIMIT $1`
+            , [quantity]);
     }
 }

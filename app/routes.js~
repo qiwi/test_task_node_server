@@ -4,11 +4,14 @@ const config = require("config");
 const Router = require("koa-router");
 const auth_1 = require("./controllers/auth");
 const users_1 = require("./controllers/users");
+const bills_1 = require("./controllers/bills");
 const router = new Router();
 exports.router = router;
 const users = new users_1.UsersController();
 const auth = new auth_1.AuthController();
+const bills = new bills_1.BillsController();
 const usersProtectedRoute = config.get('appConfig.apiPrefix') + 'users/';
+const billsProtectedRoute = config.get('appConfig.apiPrefix') + 'bills/';
 const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
 const healthcheckRoute = config.get('appConfig.publicApiPrefix') + 'healthcheck';
 router
@@ -81,5 +84,52 @@ router
      *
      * @apiSuccess {Object} result пользователь.
      */
-    .get(usersProtectedRoute + 'item', users.getItem);
+    .get(usersProtectedRoute + 'item', users.getItem)
+    /**
+     * @api {get} /api/bills/items
+     * @apiName getItems
+     * @apiGroup Bills
+     *
+     * @apiDescription Возвращает все палтёжные данные
+     *
+     * @apiHeaderExample Headers-Example:
+     *   { "Authorization": "Bearer :jwtToken" }
+     *
+     * @apiSuccess {Object} result Массив платёжных данных
+     *
+    */
+    .get(billsProtectedRoute + 'items', bills.getItems)
+    /**
+     * @api {get} /api/bills/range
+     * @apiName getItems
+     * @apiGroup Bills
+     *
+     * @apiDescription Возвращает все палтёжные данные в отрезке
+     *
+     * @apiHeaderExample Headers-Example:
+     *   { "Authorization": "Bearer :jwtToken" }
+     *
+     * @apiParam {String} start Начало отрезка.
+     * @apiParam {String} end Конец отрезка.
+     *
+     * @apiSuccess {Object} result Массив платёжных данных
+     *
+    */
+    .get(billsProtectedRoute + 'range', bills.getRange)
+    /**
+     * @api {get} /api/bills/items
+     * @apiName getItems
+     * @apiGroup Bills
+     *
+     * @apiDescription Возвращает последнии несколько платёжных данных
+     *
+     * @apiHeaderExample Headers-Example:
+     *   { "Authorization": "Bearer :jwtToken" }
+     *
+     * @apiParam {Number} quantity Колличество
+     *
+     * @apiSuccess {Object} result Массив платёжных данных
+     *
+    */
+    .get(billsProtectedRoute + 'last', bills.getLast);
 //# sourceMappingURL=routes.js.map

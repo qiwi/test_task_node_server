@@ -11,11 +11,10 @@ export class AuthController extends Controller {
 
     public login = async (ctx: Context, next: () => void): Promise<void> => {
         const data = this.validate(ctx, (validator) => {
-            let k = {
+            return {
                 email: validator.isString('email'),
                 password: validator.isString('password')
             };
-            return k;
         });
 
         if (!(await authService.authUser(data.email, data.password))) {
