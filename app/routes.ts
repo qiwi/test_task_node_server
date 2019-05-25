@@ -3,12 +3,17 @@ import * as Router from 'koa-router';
 import {AuthController} from "./controllers/auth";
 import {UsersController} from './controllers/users';
 import {Context} from "koa";
+import {BillsController} from "./controllers/bills";
+import {createValidationMiddleware as validator} from "innots/build/lib/koa/middleware/validation_middleware";
+import {Joi} from "innots";
 
 const router = new Router();
 const users = new UsersController();
 const auth = new AuthController();
+const bills = new BillsController();
 
 const usersProtectedRoute = config.get('appConfig.apiPrefix') + 'users/';
+const billsProtectedRoute = config.get('appConfig.apiPrefix') + 'bills/';
 const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
 const healthcheckRoute = config.get('appConfig.publicApiPrefix') + 'healthcheck';
 
@@ -83,6 +88,29 @@ router
      *
      * @apiSuccess {Object} result пользователь.
      */
-    .get(usersProtectedRoute + 'item', users.getItem);
+    .get(usersProtectedRoute + 'item', users.getItem)
+
+    /**
+     * @api {get} /api/bills/
+     * @apiName getBills
+     * @apiGroup Bills
+     *
+     * @apiDescription Возвращает список Счетов
+     *
+     * @apiHeader (Authorization) authorization Authorization value.
+     * @apiHeaderExample Headers-Example:
+     *   { "Authorization": "Bearer :jwtToken" }
+     *
+     *
+     * @apiSuccess {Array<Object>} result Счета
+     */
+    .get(
+        billsProtectedRoute,
+        validator(Joi.object({
+            from: Joi.string().isoDate().optional(),
+            to: Joi.string().isoDate().optional()
+        })),
+        bills.getItems
+    );
 
 export {router};
