@@ -1,5 +1,5 @@
 import {pgService} from "../../app";
-import SQLBuilder from "json-sql-builder2";
+import * as SQLBuilder from "json-sql-builder2";
 
 const sqlBuilder = new SQLBuilder('PostgreSQL');
 const BILLS_TABLE = 'aggr_bills';
