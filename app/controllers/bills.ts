@@ -31,8 +31,6 @@ export class BillsController extends Controller {
 
         const itemsCount = await maxIndexFetcher;
 
-        console.log(itemsCount);
-
         ctx.body.page = {
             index: page,
             size: pageSize,
