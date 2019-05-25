@@ -13,7 +13,7 @@ export class BillsController extends Controller {
             throw new InnoError('INVALID_REQUEST_PARAMS', 400, "from must be less then to");
         }
 
-        ctx.body = billsModel.getItems(ctx.validatedData.camelCase);
+        ctx.body = await billsModel.getItems(ctx.validatedData.camelCase);
     }
 
 }
