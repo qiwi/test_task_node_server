@@ -22,7 +22,7 @@ export class BillsModel {
     }
 
     public async getRange(start: string, end: string): Promise<Array<IBills>> {
-        return await pgService.getRows(`SELECT 
+        return await pgService.getRows(`SELECT
                                         id_bills
                                         , bills_count
                                         , bills_amount
@@ -34,7 +34,7 @@ export class BillsModel {
     }
 
     public async getLast(quantity: number): Promise<Array<IBills>> {
-        return await pgService.getRows(`SELECT 
+        return await pgService.getRows(`SELECT
                                         id_bills
                                         , bills_count
                                         , bills_amount

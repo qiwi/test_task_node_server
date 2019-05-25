@@ -93,13 +93,13 @@ router
      * @apiGroup Bills
      *
      * @apiDescription Возвращает все палтёжные данные
-     * 
+     *
+     * @apiHeader (Authorization) authorization Authorization value.
      * @apiHeaderExample Headers-Example:
      *   { "Authorization": "Bearer :jwtToken" }
      *
      * @apiSuccess {Object} result Массив платёжных данных
-     * 
-    */
+     */
     .get(billsProtectedRoute + 'items', bills.getItems)
     /**
      * @api {get} /api/bills/range
@@ -107,16 +107,16 @@ router
      * @apiGroup Bills
      *
      * @apiDescription Возвращает все палтёжные данные в отрезке
-     * 
+     *
+     * @apiHeader (Authorization) authorization Authorization value.
      * @apiHeaderExample Headers-Example:
      *   { "Authorization": "Bearer :jwtToken" }
      *
      * @apiParam {String} start Начало отрезка.
      * @apiParam {String} end Конец отрезка.
-     * 
+     *
      * @apiSuccess {Object} result Массив платёжных данных
-     * 
-    */
+     */
     .get(billsProtectedRoute + 'range', bills.getRange)
     /**
      * @api {get} /api/bills/items
@@ -124,17 +124,15 @@ router
      * @apiGroup Bills
      *
      * @apiDescription Возвращает последнии несколько платёжных данных
-     * 
+     *
+     * @apiHeader (Authorization) authorization Authorization value.
      * @apiHeaderExample Headers-Example:
      *   { "Authorization": "Bearer :jwtToken" }
      *
      * @apiParam {Number} quantity Колличество
      *
      * @apiSuccess {Object} result Массив платёжных данных
-     * 
-    */
-    .get(billsProtectedRoute + 'last', bills.getLast)
-
-    ;
+     */
+    .get(billsProtectedRoute + 'last', bills.getLast);
 
 export { router };

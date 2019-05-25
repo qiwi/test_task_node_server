@@ -28,11 +28,4 @@ export class BillsController extends Controller {
 
         ctx.body = await billsModel.getLast(quantity);
     }
-    // public getItem = async (ctx: Context): Promise<void> => {
-    //     const idUser: number = this.validate(ctx, (validator: ItemValidator) => {
-    //         return validator.isInt('id');
-    //     });
-
-    //     ctx.body = await billsModel.getItem(idUser);
-    // }
 }
