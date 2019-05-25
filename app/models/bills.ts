@@ -13,10 +13,45 @@ export interface IBills {
     paidCount: number;
 }
 
+interface IQueryParams {
+    timestampMin?: Date;
+    timestampMax?: Date;
+
+}
+
+interface IPaginatedQueryParams extends IQueryParams {
+    offset: number;
+    limit: number;
+
+}
+
 export class BillsModel {
 
-    public async getItems({from, to}: { from?: Date, to?: Date }): Promise<Array<IBills>> {
+    public async getPagedItems(params: IPaginatedQueryParams): Promise<Array<IBills>> {
 
+        const query = sqlBuilder.$select(this.buildQuery(params));
+
+        query.$limit = params.limit;
+        query.$offset = params.offset;
+
+        return await pgService.getRows(query.sql, query.values);
+    }
+
+    public async getItemsCount(params: IQueryParams): Promise<number> {
+
+        const initialQuery = this.buildQuery(params);
+
+        const bakedQuery = sqlBuilder.$select({
+            total: {$count: '*'},
+            $where: initialQuery.$where,
+            $from: initialQuery.$from
+        });
+        const result = await pgService.getRow(bakedQuery.sql, bakedQuery.values);
+        return result.total;
+
+    }
+
+    private buildQuery(params: IQueryParams): any {
         const baseQuery: any = {
             id_bills: true,
             bills_add_timestamp: true,
@@ -25,32 +60,25 @@ export class BillsModel {
             bills_count: true,
             bills_paid_count: true,
 
-            $from: BILLS_TABLE,
-            $where: {
-                $and: [
-                    {bills_add_timestamp: {$gt: from}},
-                    {bills_add_timestamp: {$lt: to}}
-                ]
-            }
+            $from: BILLS_TABLE
         };
 
-        if (from && to) {
+        if (params.timestampMin && params.timestampMax) {
             baseQuery.$where = {
                 $and: [
-                    {bills_add_timestamp: {$gt: from}},
-                    {bills_add_timestamp: {$lt: to}}
+                    {bills_add_timestamp: {$gte: params.timestampMin}},
+                    {bills_add_timestamp: {$lt: params.timestampMax}}
                 ]
             };
-        } else if (from) {
-            baseQuery.$where = {bills_add_timestamp: {$gte: from}};
+        } else if (params.timestampMin) {
+            baseQuery.$where = {bills_add_timestamp: {$gte: params.timestampMin}};
 
-        } else if (to) {
-            baseQuery.$where = {bills_add_timestamp: {$lte: to}};
+        } else if (params.timestampMin) {
+            baseQuery.$where = {bills_add_timestamp: {$lt: params.timestampMax}};
         }
 
-        const query = sqlBuilder.$select(baseQuery);
+        return baseQuery;
 
-        return await pgService.getRows(query.sql, query.values);
     }
 
 }

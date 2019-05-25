@@ -107,6 +107,8 @@ router
     .get(
         billsProtectedRoute,
         validator(Joi.object({
+            page: Joi.number().integer().min(0).default(0),
+            pageSize: Joi.number().integer().min(1).max(100).default(10),
             from: Joi.string().isoDate().optional(),
             to: Joi.string().isoDate().optional()
         })),
