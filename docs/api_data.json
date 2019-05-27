@@ -52,6 +52,88 @@
   },
   {
     "type": "get",
+    "url": "/api/bills/",
+    "title": "",
+    "name": "getBills",
+    "group": "Bills",
+    "description": "<p>Возвращает список Счетов</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "ISODate",
+            "optional": true,
+            "field": "fromDate",
+            "description": "<p>Начало временных рамок. Считается включая дату</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ISODate",
+            "optional": true,
+            "field": "toDate",
+            "description": "<p>Конец временных рамок. Исключая дату</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "number",
+            "allowedValues": [
+              "1..100"
+            ],
+            "optional": true,
+            "field": "pageSize",
+            "defaultValue": "10",
+            "description": "<p>Размер страницы для пагинации</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "number",
+            "optional": true,
+            "field": "pageIndex",
+            "defaultValue": "0",
+            "description": "<p>Номер страницы для пагинации</p>"
+          }
+        ]
+      }
+    },
+    "header": {
+      "fields": {
+        "Authorization": [
+          {
+            "group": "Authorization",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Headers-Example:",
+          "content": "{ \"Authorization\": \"Bearer :jwtToken\" }",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "result",
+            "description": "<p>Счета</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./app/routes.ts",
+    "groupTitle": "Bills"
+  },
+  {
+    "type": "get",
     "url": "/api/users/item",
     "title": "",
     "name": "getUser",

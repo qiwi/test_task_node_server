@@ -108,7 +108,7 @@ router
      *   { "Authorization": "Bearer :jwtToken" }
      *
      *
-     * @apiSuccess {Array<Object>} result Счета
+     * @apiSuccess {Object[]} result Счета
      */
     .get(
         billsProtectedRoute,
