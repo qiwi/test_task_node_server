@@ -35,6 +35,6 @@ export class BillsController extends Controller {
             // tslint:disable-next-line:no-bitwise
             maxIndex: (itemsCount / pageSize) | 0
         };
-    };
+    }
 
 }
