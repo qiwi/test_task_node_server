@@ -9,8 +9,6 @@ export class BillsController extends Controller {
     public getItems = async (ctx: Context, next: any): Promise<void> => {
         const {fromDate, toDate, pageIndex, pageSize} = ctx.validatedData.camelCase;
 
-        console.log(pageSize);
-
         if (fromDate && toDate && fromDate > toDate) {
             throw new InnoError('INVALID_REQUEST_PARAMS', 400, "from must be less then to");
         }
