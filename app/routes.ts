@@ -19,21 +19,21 @@ const healthcheckRoute = config.get('appConfig.publicApiPrefix') + 'healthcheck'
 
 router
 
-/**
- * @api {get} /api/public/healthcheck
- * @apiName healthcheck
- * @apiGroup healthcheck
- *
- * @apiDescription Всегда вернет 200, когда приложение запущено
- *
- * @apiSuccess {Number} result 1
- *
- * @apiSuccessExample {json} Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "result": 1
- *     }
- */
+    /**
+     * @api {get} /api/public/healthcheck
+     * @apiName healthcheck
+     * @apiGroup healthcheck
+     *
+     * @apiDescription Всегда вернет 200, когда приложение запущено
+     *
+     * @apiSuccess {Number} result 1
+     *
+     * @apiSuccessExample {json} Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "result": 1
+     *     }
+     */
     .get(healthcheckRoute, (ctx: Context, next: () => void) => {
         ctx.body = 1;
         next();
