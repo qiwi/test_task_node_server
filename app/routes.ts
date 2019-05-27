@@ -19,21 +19,21 @@ const healthcheckRoute = config.get('appConfig.publicApiPrefix') + 'healthcheck'
 
 router
 
-    /**
-     * @api {get} /api/public/healthcheck
-     * @apiName healthcheck
-     * @apiGroup healthcheck
-     *
-     * @apiDescription Всегда вернет 200, когда приложение запущено
-     *
-     * @apiSuccess {Number} result 1
-     *
-     * @apiSuccessExample {json} Success-Response:
-     *     HTTP/1.1 200 OK
-     *     {
-     *       "result": 1
-     *     }
-     */
+/**
+ * @api {get} /api/public/healthcheck
+ * @apiName healthcheck
+ * @apiGroup healthcheck
+ *
+ * @apiDescription Всегда вернет 200, когда приложение запущено
+ *
+ * @apiSuccess {Number} result 1
+ *
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "result": 1
+ *     }
+ */
     .get(healthcheckRoute, (ctx: Context, next: () => void) => {
         ctx.body = 1;
         next();
@@ -97,6 +97,12 @@ router
      *
      * @apiDescription Возвращает список Счетов
      *
+     *
+     * @apiParam {ISODate} [fromDate] Начало временных рамок. Считается включая дату
+     * @apiParam {ISODate} [toDate] Конец временных рамок. Исключая дату
+     * @apiParam {number=1..100} [pageSize=10] Размер страницы для пагинации
+     * @apiParam {number} [pageIndex=0] Номер страницы для пагинации
+     *
      * @apiHeader (Authorization) authorization Authorization value.
      * @apiHeaderExample Headers-Example:
      *   { "Authorization": "Bearer :jwtToken" }
@@ -107,10 +113,10 @@ router
     .get(
         billsProtectedRoute,
         validator(Joi.object({
-            page: Joi.number().integer().min(0).default(0),
+            pageIndex: Joi.number().integer().min(0).default(0),
             pageSize: Joi.number().integer().min(1).max(100).default(10),
-            from: Joi.string().isoDate().optional(),
-            to: Joi.string().isoDate().optional()
+            fromDate: Joi.string().isoDate().optional(),
+            toDate: Joi.string().isoDate().optional()
         })),
         bills.getItems
     );

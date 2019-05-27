@@ -7,24 +7,24 @@ const billsModel = new BillsModel();
 export class BillsController extends Controller {
 
     public getItems = async (ctx: Context, next: any): Promise<void> => {
-        const {from, to, page, pageSize} = ctx.validatedData.camelCase;
+        const {fromDate, toDate, pageIndex, pageSize} = ctx.validatedData.camelCase;
 
         console.log(pageSize);
 
-        if (from && to && from > to) {
+        if (fromDate && toDate && fromDate > toDate) {
             throw new InnoError('INVALID_REQUEST_PARAMS', 400, "from must be less then to");
         }
 
         ctx.body = await billsModel.getPagedItems({
-            timestampMax: to,
-            timestampMin: from,
-            offset: page * pageSize,
+            timestampMax: toDate,
+            timestampMin: fromDate,
+            offset: pageIndex * pageSize,
             limit: pageSize
         });
 
         const maxIndexFetcher = billsModel.getItemsCount({
-            timestampMax: to,
-            timestampMin: from
+            timestampMax: toDate,
+            timestampMin: fromDate
         });
 
         next();
@@ -32,11 +32,11 @@ export class BillsController extends Controller {
         const itemsCount = await maxIndexFetcher;
 
         ctx.body.page = {
-            index: page,
+            index: pageIndex,
             size: pageSize,
             // tslint:disable-next-line:no-bitwise
             maxIndex: (itemsCount / pageSize) | 0
         };
-    }
+    };
 
 }
