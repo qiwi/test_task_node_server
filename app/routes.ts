@@ -16,7 +16,6 @@ const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
 const healthcheckRoute = config.get('appConfig.publicApiPrefix') + 'healthcheck';
 
 router
-
     /**
      * @api {get} /api/public/healthcheck
      * @apiName healthcheck
@@ -106,7 +105,7 @@ router
      * @apiName getItems
      * @apiGroup Bills
      *
-     * @apiDescription Возвращает все палтёжные данные в отрезке
+     * @apiDescription Возвращает все палтёжные данные в отрезке времени
      *
      * @apiHeader (Authorization) authorization Authorization value.
      * @apiHeaderExample Headers-Example:
@@ -119,7 +118,7 @@ router
      */
     .get(billsProtectedRoute + 'range', bills.getRange)
     /**
-     * @api {get} /api/bills/items
+     * @api {get} /api/bills/last
      * @apiName getItems
      * @apiGroup Bills
      *
