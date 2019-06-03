@@ -95,9 +95,65 @@
   },
   {
     "type": "get",
+    "url": "/api/bills/last",
+    "title": "",
+    "name": "getLast",
+    "group": "Bills",
+    "description": "<p>Возвращает последнии несколько платёжных данных</p>",
+    "header": {
+      "fields": {
+        "Authorization": [
+          {
+            "group": "Authorization",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Headers-Example:",
+          "content": "{ \"Authorization\": \"Bearer :jwtToken\" }",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "quantity",
+            "description": "<p>Колличество</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "result",
+            "description": "<p>Массив платёжных данных</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./app/routes.ts",
+    "groupTitle": "Bills"
+  },
+  {
+    "type": "get",
     "url": "/api/bills/range",
     "title": "",
-    "name": "getItems",
+    "name": "getRange",
     "group": "Bills",
     "description": "<p>Возвращает все палтёжные данные в отрезке времени</p>",
     "header": {
@@ -135,62 +191,6 @@
             "optional": false,
             "field": "end",
             "description": "<p>Конец отрезка.</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "result",
-            "description": "<p>Массив платёжных данных</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "./app/routes.ts",
-    "groupTitle": "Bills"
-  },
-  {
-    "type": "get",
-    "url": "/api/bills/last",
-    "title": "",
-    "name": "getItems",
-    "group": "Bills",
-    "description": "<p>Возвращает последнии несколько платёжных данных</p>",
-    "header": {
-      "fields": {
-        "Authorization": [
-          {
-            "group": "Authorization",
-            "optional": false,
-            "field": "authorization",
-            "description": "<p>Authorization value.</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Headers-Example:",
-          "content": "{ \"Authorization\": \"Bearer :jwtToken\" }",
-          "type": "json"
-        }
-      ]
-    },
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "quantity",
-            "description": "<p>Колличество</p>"
           }
         ]
       }

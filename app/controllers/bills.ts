@@ -11,14 +11,14 @@ export class BillsController extends Controller {
     }
 
     public getRange = async (ctx: Context): Promise<void> => {
-        const data = this.validate(ctx, (validator: ItemValidator) => {
+        const validatedRange = this.validate(ctx, (validator: ItemValidator) => {
             return {
                 start: validator.isInt('start'), // datatime
                 end: validator.isInt('end') // datatime
             };
         });
 
-        ctx.body = await billsModel.getRange(data.start, data.end);
+        ctx.body = await billsModel.getRange(validatedRange.start, validatedRange.end);
     }
 
     public getLast = async (ctx: Context): Promise<void> => {

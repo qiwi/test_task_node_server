@@ -102,7 +102,7 @@ router
     .get(billsProtectedRoute + 'items', bills.getItems)
     /**
      * @api {get} /api/bills/range
-     * @apiName getItems
+     * @apiName getRange
      * @apiGroup Bills
      *
      * @apiDescription Возвращает все палтёжные данные в отрезке времени
@@ -119,7 +119,7 @@ router
     .get(billsProtectedRoute + 'range', bills.getRange)
     /**
      * @api {get} /api/bills/last
-     * @apiName getItems
+     * @apiName getLast
      * @apiGroup Bills
      *
      * @apiDescription Возвращает последнии несколько платёжных данных
