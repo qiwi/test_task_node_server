@@ -1,8 +1,9 @@
 {
   "name": "inno-basic-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "start": "node app.js",
+    "debug": "node --inspect app.js",
     "build": "tsc",
     "watch": "tsc --watch",
     "lint": "tslint 'app/**/*.ts' --project tsconfig.json",
@@ -14,10 +15,10 @@
   "private": true,
   "dependencies": {
     "config": "^1.30.0",
-    "innots": "^1.1.7"
+    "innots": "^1.4.1"
   },
   "devDependencies": {
-    "apidoc": "^0.17.5",
+    "apidoc": "^0.17.7",
     "tslint": "^5.7.0",
     "tslint-eslint-rules": "^4.1.1",
     "typescript": "^2.6.2"

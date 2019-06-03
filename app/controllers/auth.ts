@@ -1,8 +1,8 @@
 import * as config from "config";
-import {Controller, IAppJwtConfig, InnoError} from "innots";
-import {JwtService} from "innots/build/lib/koa/services/jwt_service";
-import {Context} from "koa";
-import {AuthService} from "../services/auth";
+import { Controller, IAppJwtConfig, InnoError } from "innots";
+import { JwtService } from "innots/build/lib/koa/services/jwt_service";
+import { Context } from "koa";
+import { AuthService } from "../services/auth";
 
 const authService: AuthService = new AuthService();
 
