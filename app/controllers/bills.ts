@@ -13,8 +13,8 @@ export class BillsController extends Controller {
     public getRange = async (ctx: Context): Promise<void> => {
         const data = this.validate(ctx, (validator: ItemValidator) => {
             return {
-                start: validator.isString('start'), // datatime
-                end: validator.isString('end') // datatime
+                start: validator.isInt('start'), // datatime
+                end: validator.isInt('end') // datatime
             };
         });
 

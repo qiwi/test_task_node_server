@@ -111,8 +111,8 @@ router
      * @apiHeaderExample Headers-Example:
      *   { "Authorization": "Bearer :jwtToken" }
      *
-     * @apiParam {String} start Начало отрезка.
-     * @apiParam {String} end Конец отрезка.
+     * @apiParam {Number} start Начало отрезка.3
+     * @apiParam {Number} end Конец отрезка.
      *
      * @apiSuccess {Object} result Массив платёжных данных
      */

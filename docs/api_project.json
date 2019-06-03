@@ -1,6 +1,6 @@
 {
   "name": "Test task node server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fullstack JS / TS developer test task basic app",
   "title": "Test task node server",
   "url": "",
@@ -9,8 +9,8 @@
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2019-01-21T15:59:28.542Z",
+    "time": "2019-06-03T08:59:06.179Z",
     "url": "http://apidocjs.com",
-    "version": "0.17.6"
+    "version": "0.17.7"
   }
 }

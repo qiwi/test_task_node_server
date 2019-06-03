@@ -1,8 +1,9 @@
 {
   "name": "inno-basic-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
-    "start": "node --inspect app.js",
+    "start": "node app.js",
+    "debug": "node --inspect app.js",
     "build": "tsc",
     "watch": "tsc --watch",
     "lint": "tslint 'app/**/*.ts' --project tsconfig.json",
