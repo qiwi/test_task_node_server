@@ -1,16 +1,19 @@
 import * as config from 'config';
 import * as Router from 'koa-router';
-import {AuthController} from "./controllers/auth";
-import {UsersController} from './controllers/users';
-import {Context} from "koa";
+import { AuthController } from "./controllers/auth";
+import { UsersController } from './controllers/users';
+import { BillsController } from "./controllers/bills";
+import { Context } from "koa";
 
 const router = new Router();
 const users = new UsersController();
 const auth = new AuthController();
+const bills = new BillsController();
 
 const usersProtectedRoute = config.get('appConfig.apiPrefix') + 'users/';
 const authPublicRoute = config.get('appConfig.publicApiPrefix') + 'auth/';
 const healthcheckRoute = config.get('appConfig.publicApiPrefix') + 'healthcheck';
+const billsProtectedRoute = config.get('appConfig.apiPrefix') + 'bills/';
 
 router
 
@@ -67,7 +70,7 @@ router
      *
      * @apiSuccess {Array} result Массив созданных пользователей.
      */
-    .get(usersProtectedRoute + 'items', users.getItems)
+    .get(usersProtectedRoute + 'items', users.getItems, bills.getItemsFilteredByDate)
     /**
      * @api {get} /api/users/item
      * @apiName getUser
@@ -83,6 +86,37 @@ router
      *
      * @apiSuccess {Object} result пользователь.
      */
-    .get(usersProtectedRoute + 'item', users.getItem);
+    .get(usersProtectedRoute + 'item', users.getItem)
+    /**
+     * @api {get} /api/bills/items
+     * @apiName getBills
+     * @apiGroup Bills
+     *
+     * @apiDescription Возвращает записи о платежных транзакциях
+     *
+     * @apiHeader {Authorization} authorization Authorization value.
+     * @apiHeaderExample Headers-Example:
+     *   { "Authorization": "Bearer :jwtToken" }
+     *
+     * @apiSuccess {Array} result массив записей о платежных транзакциях
+     */
+    .get(billsProtectedRoute + 'items', bills.getItems)
+    /**
+     * @api {get} /api/bills/filteredbydate
+     * @apiName getBillsFilteredByDate
+     * @apiGroup Bills
+     *
+     * @apiDescription Возвращает записи о платежных транзакциях отфильтрованые по диапозону дат
+     *
+     * @apiHeader (Authorization) authorization Authorization value.
+     * @apiHeaderExample Headers-Example:
+     *   { "Authorization": "Bearer :jwtToken" }
+     *
+     * @apiParam {Date} dateFrom дата начала диапазона по которому фильтруются записи
+     * @apiParam {Date} dateTo дата окончания диапазона дат по которому фильтруются записи
+     *
+     * @apiSuccess {Array} result отфильтрованный массив записей о платёжных транзакциях
+     */
+    .get(billsProtectedRoute + 'items/filteredbydate', bills.getItemsFilteredByDate);
 
-export {router};
+export { router };

@@ -52,6 +52,113 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/api/bills/items",
+    "title": "",
+    "name": "getBills",
+    "group": "Bills",
+    "description": "<p>Возвращает записи о платежных транзакциях</p>",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "Authorization",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Headers-Example:",
+          "content": "{ \"Authorization\": \"Bearer :jwtToken\" }",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "result",
+            "description": "<p>массив записей о платежных транзакциях</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./app/routes.ts",
+    "groupTitle": "Bills"
+  },
+  {
+    "type": "get",
+    "url": "/api/bills/filteredbydate",
+    "title": "",
+    "name": "getBillsFilteredByDate",
+    "group": "Bills",
+    "description": "<p>Возвращает записи о платежных транзакциях отфильтрованые по диапозону дат</p>",
+    "header": {
+      "fields": {
+        "Authorization": [
+          {
+            "group": "Authorization",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Headers-Example:",
+          "content": "{ \"Authorization\": \"Bearer :jwtToken\" }",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Date",
+            "optional": false,
+            "field": "dateFrom",
+            "description": "<p>дата начала диапазона по которому фильтруются записи</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Date",
+            "optional": false,
+            "field": "dateTo",
+            "description": "<p>дата окончания диапазона дат по которому фильтруются записи</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "result",
+            "description": "<p>отфильтрованный массив записей о платёжных транзакциях</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./app/routes.ts",
+    "groupTitle": "Bills"
+  },
+  {
+    "type": "get",
     "url": "/api/users/item",
     "title": "",
     "name": "getUser",

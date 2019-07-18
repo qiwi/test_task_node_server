@@ -4,9 +4,10 @@
   "scripts": {
     "start": "node app.js",
     "build": "tsc",
-    "watch": "tsc --watch",
-    "lint": "tslint 'app/**/*.ts' --project tsconfig.json",
-    "doc": "apidoc -f app/routes.ts -o docs"
+    "lint": "tslint --fix 'app/**/*.ts' --project tsconfig.json",
+    "doc": "apidoc -f app/routes.ts -o docs",
+    "debug": "nodemon --inspect-brk node_modules/.bin/_mocha ./app/controllers/*.spec.js --timeout 200000 --reporter spec --recursive --exit",
+    "test": "node node_modules/.bin/_mocha ./app/**/*.spec.js --timeout 200000 --reporter spec --recursive --exit"
   },
   "author": "",
   "license": "",
@@ -17,9 +18,20 @@
     "innots": "^1.5.6"
   },
   "devDependencies": {
+    "@types/chai": "^3.4.34",
+    "@types/mocha": "^2.2.38",
+    "@types/request": "^2.48.1",
+    "@types/request-promise": "^4.1.44",
     "apidoc": "^0.17.7",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "nodemon": "^1.19.1",
+    "nyc": "^14.1.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "source-map-support": "^0.5.12",
     "tslint": "^5.7.0",
-    "tslint-eslint-rules": "^4.1.1",
+    "tslint-eslint-rules": "^5.4.0",
     "typescript": "^2.6.2"
   }
 }

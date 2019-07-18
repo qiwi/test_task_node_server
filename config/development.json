@@ -2,9 +2,9 @@
   "appConfig": {
     "apiPrefix": "/api/",
     "publicApiPrefix": "/api/public/",
-    "port": 2211,
+    "port": 3000,
     "enableLogMiddleware": true,
-    "logLevel": "DEBUG",
+    "logLevel": "TRACE",
     "jwt": {
       "secret": "jwt_secret",
       "publicPath": "^\/api/public"
@@ -15,7 +15,7 @@
     }
   },
   "db": {
-    "host": "localhost",
+    "host": "192.168.0.4",
     "port": 5433,
     "database": "postgres",
     "user": "postgres",
